@@ -19,14 +19,20 @@
 #ifndef INTEGER_RADIX_SORT_H_HEADER_GUARD__
 #define INTEGER_RADIX_SORT_H_HEADER_GUARD__
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
 
 #if defined __GNUC__
 #define INTEGER_RADIX_SORT__MEMSET __builtin_memset
+#define INTEGER_RADIX_SORT__MEMCPY __builtin_memcpy
 #else
 #define INTEGER_RADIX_SORT__MEMSET memset
+#define INTEGER_RADIX_SORT__MEMCPY memcpy
 #endif
+
+#define INTEGER_RADIX_SORT__SIZE_THRESHOLD 2048
 
 #define INTEGER_RADIX_SORT__BIN_SIZES_TO_INDICES(PFX, BIN_INDICES)  \
   do                                                                \
@@ -65,65 +71,88 @@
     }                                                               \
   while (0)
 
+#define INTEGER_RADIX_SORT__SORT_BY_DIGIT(PFX, KEY_T, GET_KEY,      \
+                                          ARR1, ARR2, NMEMB, SIZE,  \
+                                          ALL_EXPENDED, SHIFT)      \
+  do                                                                \
+    {                                                               \
+      size_t PFX##bin_indices[256];                                 \
+      INTEGER_RADIX_SORT__COUNT_ENTRIES (PFX, KEY_T, GET_KEY,       \
+                                         (ARR1), (NMEMB), (SIZE),   \
+                                         PFX##bin_indices,          \
+                                         ALL_EXPENDED, (SHIFT));    \
+      if (!(ALL_EXPENDED))                                          \
+        {                                                           \
+          INTEGER_RADIX_SORT__BIN_SIZES_TO_INDICES (PFX,            \
+                                                    BIN_INDICES);   \
+          for (size_t PFX##i = 0; PFX##i != (NMEMB); PFX##i += 1)   \
+            {                                                       \
+              char *PFX##p_src = (ARR) + PFX##i * (SIZE);           \
+              KEY_T PFX##key = GET_KEY (PFX##p_src);                \
+              unsigned int PFX##key_shifted =                       \
+                (PFX##key >> (SHIFT));                              \
+              unsigned int PFX##digit = (PFX##key_shifted & 255U);  \
+              size_t PFX##j = PFX##bin_indices[PFX##digit];         \
+              char *PFX##p_dst = (ARR) + PFX##j;                    \
+              INTEGER_RADIX_SORT__MEMCPY (PFX##p_dst, PFX##p_src,   \
+                                          SIZE);                    \
+              PFX##bin_indices[PFX##digit] = PFX##j;                \
+            }                                                       \
+        }                                                           \
+    }                                                               \
+  while (0)
 
-/* fn {a  : vt@ype} */
-/*    {tk : tkind} */
-/* sort_by_digit */
-/*           {n            : int} */
-/*           {shift        : nat} */
-/*           (arr1         : &RD(array (a, n)), */
-/*            arr2         : &array (a, n) >> _, */
-/*            n            : size_t n, */
-/*            all_expended : &bool? >> bool, */
-/*            shift        : int shift) */
-/*     :<!wrt> void = */
-/*   let */
-/*     var bin_indices : array (size_t, 256) */
-/*   in */
-/*     count_entries<a><tk> (arr1, n, bin_indices, all_expended, shift); */
-/*     if all_expended then */
-/*       () */
-/*     else */
-/*       let */
-/*         fun */
-/*         rearrange {i : int | i <= n} */
-/*                   .<n - i>. */
-/*                   (arr1        : &RD(array (a, n)), */
-/*                    arr2        : &array (a, n) >> _, */
-/*                    bin_indices : &array (size_t, 256) >> _, */
-/*                    i           : size_t i) */
-/*             :<!wrt> void = */
-/*           if i <> n then */
-/*             let */
-/*               prval () = lemma_g1uint_param i */
-/*               val key = g0uint_radix_sort$key<a><tk> (arr1, i) */
-/*               val key_shifted = key >> shift */
-/*               val digit = ($UN.cast{uint} key_shifted) land 255U */
-/*               val [digit : int] digit = g1ofg0 digit */
-/*               extern praxi set_range : */
-/*                 () -<prf> [0 <= digit; digit <= 255] void */
-/*               prval () = set_range () */
-/*               val [j : int] j = g1ofg0 bin_indices[digit] */
-
-/*               (* One might wish to get rid of this assertion somehow, */
-/*                  to eliminate the branch, should it prove a */
-/*                  problem. *) */
-/*               val () = $effmask_exn assertloc (j < n) */
-
-/*               val p_dst = ptr_add<a> (addr@ arr2, j) */
-/*               and p_src = ptr_add<a> (addr@ arr1, i) */
-/*               val () = copy_memory (p_dst, p_src, sizeof<a>) */
-/*               val () = bin_indices[digit] := succ (g0ofg1 j) */
-/*             in */
-/*               rearrange (arr1, arr2, bin_indices, succ i) */
-/*             end */
-
-/*         prval () = lemma_array_param arr1 */
-/*       in */
-/*         bin_sizes_to_indices<> bin_indices; */
-/*         rearrange (arr1, arr2, bin_indices, i2sz 0) */
-/*       end */
-/*   end */
-
+#define INTEGER_RADIX_SORT__INTEGER_RADIX_SORT(PFX, KEY_T, GET_KEY, \
+                                               ARR, NMEMB, SIZE)    \
+  do                                                                \
+    {                                                               \
+      size_t PFX##total_size = (NMEMB) * (SIZE);                    \
+      size_t PFX##use_stack =                                       \
+        PFX##total_size <= (INTEGER_RADIX_SORT__SIZE_THRESHOLD);    \
+      size_t PFX##stack_space;                                      \
+      if (PFX##use_stack);                                          \
+      PFX##stack_space = PFX##total_size;                           \
+      else                                                          \
+        PFX##stack_space = 1;                                       \
+      char PFX##stack[PFX##stack_space];                            \
+      char *PFX##arr2;                                              \
+      if (PFX##use_stack)                                           \
+        PFX##arr2 = PFX##stack;                                     \
+      else                                                          \
+        {                                                           \
+          PFX##arr2 = malloc (INTEGER_RADIX_SORT__SIZE_THRESHOLD);  \
+          if (PFX##arr2 == NULL)                                    \
+            {                                                       \
+              fprintf (stderr, "Memory exhausted");                 \
+              exit (1);                                             \
+            }                                                       \
+        }                                                           \
+                                                                    \
+      int PFX##from1to2 = 1;                                        \
+      int PFX##all_expended = 0;                                    \
+      int PFX##idigit = 0;                                          \
+      while (!PFX##all_expended && PFX##idigit != sizeof (KEY_T))   \
+        {                                                           \
+          if (PFX##from1to2)                                        \
+            INTEGER_RADIX_SORT__SORT_BY_DIGIT(PFX, KEY_T, GET_KEY,  \
+                                              (ARR), PFX##arr2,     \
+                                              (NMEMB), (SIZE),      \
+                                              PFX##all_expended,    \
+                                              8 * PFX##idigit);     \
+          else                                                      \
+            INTEGER_RADIX_SORT__SORT_BY_DIGIT(PFX, KEY_T, GET_KEY,  \
+                                              PFX##arr2, (ARR),     \
+                                              (NMEMB), (SIZE),      \
+                                              PFX##all_expended,    \
+                                              8 * PFX##idigit);     \
+          PFX##idigit += 1;                                         \
+        }                                                           \
+      INTEGER_RADIX_SORT__MEMSET ((ARR), PFX##arr2,                 \
+                                  PFX##total_size);                 \
+                                                                    \
+      if (!PFX##use_stack)                                          \
+        free (PFX##arr2);                                           \
+    }                                                               \
+  while (0)
 
 #endif INTEGER_RADIX_SORT_H_HEADER_GUARD__
