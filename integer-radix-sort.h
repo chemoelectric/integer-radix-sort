@@ -162,17 +162,13 @@
     }                                                               \
   while (0)
 
-#define INTEGER_RADIX_SORT(ARR, NMEMB, SIZE, KEY_T, GET_KEY)        \
+#define INTEGER_RADIX_SORT(KEY_T, ARR, NMEMB, SIZE, GET_KEY)        \
   INTEGER_RADIX_SORT__INTEGER_RADIX_SORT(_integer_radix_sort__,     \
                                          KEY_T, GET_KEY,            \
                                          (ARR), (NMEMB), (SIZE))
 
-#define INT_RADIX_SORT(ARR, NMEMB, SIZE)                \
-  INTEGER_RADIX_SORT(ARR, NMEMB, SIZE, int,             \
-                     INTEGER_RADIX_SORT__DEREFERENCE)
-
-#define UNSIGNED_INT_RADIX_SORT(ARR, NMEMB, SIZE)       \
-  INTEGER_RADIX_SORT(ARR, NMEMB, SIZE, unsigned int,    \
-                     INTEGER_RADIX_SORT__DEREFERENCE)
+#define INTTYPE_RADIX_SORT(KEY_T, ARR, NMEMB)                   \
+  INTEGER_RADIX_SORT (KEY_T, (ARR), (NMEMB), sizeof (KEY_T),    \
+                      INTEGER_RADIX_SORT__DEREFERENCE)
 
 #endif /* INTEGER_RADIX_SORT_H_HEADER_GUARD__ */

@@ -23,7 +23,7 @@ int
 main (int argc, char *argv[])
 {
   int arr[5] = {5, 4, 3, 2, 1};
-  INT_RADIX_SORT (arr, 5, sizeof (int));
+  INTTYPE_RADIX_SORT (int, arr, 5);
   for (size_t i = 0; i != 5; i += 1)
     printf ("%d\n", arr[i]);
   return 0;
