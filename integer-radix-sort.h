@@ -34,6 +34,9 @@
 
 #define INTEGER_RADIX_SORT__SIZE_THRESHOLD 2048
 
+#define INTEGER_RADIX_SORT__DEREFERENCE(KEY_T, PTR) \
+  (*(const KEY_T *)(PTR))
+
 #define INTEGER_RADIX_SORT__BIN_SIZES_TO_INDICES(PFX, BIN_INDICES)  \
   do                                                                \
     {                                                               \
@@ -56,11 +59,12 @@
   do                                                                \
     {                                                               \
       ALL_EXPENDED = 1;                                             \
-      INTEGER_RADIX_SORT__MEMSET ((BIN_INDICES),                    \
-                                  256 * sizeof (size_t), 0);        \
+      INTEGER_RADIX_SORT__MEMSET ((BIN_INDICES), 0,                 \
+                                  256 * sizeof (size_t));           \
       for (size_t PFX##i = 0; PFX##i != (NMEMB); PFX##i += 1)       \
         {                                                           \
-          KEY_T PFX##key = GET_KEY ((ARR) + PFX##i * (SIZE));       \
+          KEY_T PFX##key =                                          \
+            GET_KEY (KEY_T, (ARR) + PFX##i * (SIZE));               \
           unsigned int PFX##key_shifted = (PFX##key >> (SHIFT));    \
           unsigned int PFX##digit = (PFX##key_shifted & 255U);      \
           size_t PFX##count = (BIN_INDICES)[PFX##digit];            \
@@ -83,17 +87,19 @@
                                          ALL_EXPENDED, (SHIFT));    \
       if (!(ALL_EXPENDED))                                          \
         {                                                           \
-          INTEGER_RADIX_SORT__BIN_SIZES_TO_INDICES (PFX,            \
-                                                    BIN_INDICES);   \
+          INTEGER_RADIX_SORT__BIN_SIZES_TO_INDICES                  \
+            (PFX, PFX##bin_indices);                                \
           for (size_t PFX##i = 0; PFX##i != (NMEMB); PFX##i += 1)   \
             {                                                       \
-              char *PFX##p_src = (ARR) + PFX##i * (SIZE);           \
-              KEY_T PFX##key = GET_KEY (PFX##p_src);                \
+              const char *PFX##p_src =                              \
+                ((const char *) (ARR1)) + PFX##i * (SIZE);          \
+              KEY_T PFX##key = GET_KEY (KEY_T, PFX##p_src);         \
               unsigned int PFX##key_shifted =                       \
                 (PFX##key >> (SHIFT));                              \
               unsigned int PFX##digit = (PFX##key_shifted & 255U);  \
               size_t PFX##j = PFX##bin_indices[PFX##digit];         \
-              char *PFX##p_dst = (ARR) + PFX##j;                    \
+              char *PFX##p_dst =                                    \
+                ((char *) (ARR2)) + PFX##j * (SIZE);                \
               INTEGER_RADIX_SORT__MEMCPY (PFX##p_dst, PFX##p_src,   \
                                           SIZE);                    \
               PFX##bin_indices[PFX##digit] = PFX##j;                \
@@ -110,8 +116,8 @@
       size_t PFX##use_stack =                                       \
         PFX##total_size <= (INTEGER_RADIX_SORT__SIZE_THRESHOLD);    \
       size_t PFX##stack_space;                                      \
-      if (PFX##use_stack);                                          \
-      PFX##stack_space = PFX##total_size;                           \
+      if (PFX##use_stack)                                           \
+        PFX##stack_space = PFX##total_size;                         \
       else                                                          \
         PFX##stack_space = 1;                                       \
       char PFX##stack[PFX##stack_space];                            \
@@ -147,7 +153,7 @@
                                               8 * PFX##idigit);     \
           PFX##idigit += 1;                                         \
         }                                                           \
-      INTEGER_RADIX_SORT__MEMSET ((ARR), PFX##arr2,                 \
+      INTEGER_RADIX_SORT__MEMCPY ((ARR), PFX##arr2,                 \
                                   PFX##total_size);                 \
                                                                     \
       if (!PFX##use_stack)                                          \
@@ -155,4 +161,17 @@
     }                                                               \
   while (0)
 
-#endif INTEGER_RADIX_SORT_H_HEADER_GUARD__
+#define INTEGER_RADIX_SORT(ARR, NMEMB, SIZE, KEY_T, GET_KEY)        \
+  INTEGER_RADIX_SORT__INTEGER_RADIX_SORT(_integer_radix_sort__,     \
+                                         KEY_T, GET_KEY,            \
+                                         (ARR), (NMEMB), (SIZE))
+
+#define INT_RADIX_SORT(ARR, NMEMB, SIZE)                \
+  INTEGER_RADIX_SORT(ARR, NMEMB, SIZE, int,             \
+                     INTEGER_RADIX_SORT__DEREFERENCE)
+
+#define UNSIGNED_INT_RADIX_SORT(ARR, NMEMB, SIZE)       \
+  INTEGER_RADIX_SORT(ARR, NMEMB, SIZE, unsigned int,    \
+                     INTEGER_RADIX_SORT__DEREFERENCE)
+
+#endif /* INTEGER_RADIX_SORT_H_HEADER_GUARD__ */

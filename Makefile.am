@@ -80,8 +80,20 @@ escape = $(subst $$,\$$,$(subst ^,\^,$(subst ],\],$(subst [,\[,$(subst .,\.,$(su
 
 #--------------------------------------------------------------------------
 
-# TESTS =
-# TESTS += tests/test-random-arrays
+TESTS =
+TESTS += tests/test-INT_RADIX_SORT
+
+EXTRA_PROGRAMS += tests/test-INT_RADIX_SORT
+CLEANFILES += tests/test-INT_RADIX_SORT
+tests_test_INT_RADIX_SORT_SOURCES =
+tests_test_INT_RADIX_SORT_SOURCES += tests/test-INT_RADIX_SORT.c
+#tests_test_INT_RADIX_SORT_DEPENDENCIES =
+#tests_test_INT_RADIX_SORT_DEPENDENCIES += libinteger-radix-sort.la
+#tests_test_INT_RADIX_SORT_LDADD =
+#tests_test_INT_RADIX_SORT_LDADD += libinteger-radix-sort.la
+
+
+
 # TESTS += tests/test-stability
 
 # EXTRA_PROGRAMS += tests/test-random-arrays
