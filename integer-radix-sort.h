@@ -64,8 +64,8 @@
       for (size_t PFX##i = 0; PFX##i != (NMEMB); PFX##i += 1)       \
         {                                                           \
           KEY_T PFX##key =                                          \
-            GET_KEY (KEY_T,                                         \
-                     ((const char *) (ARR)) + PFX##i * (SIZE));     \
+            GET_KEY                                                 \
+            (KEY_T, (void *) ((char *) (ARR)) + PFX##i * (SIZE));   \
           unsigned int PFX##key_shifted = (PFX##key >> (SHIFT));    \
           unsigned int PFX##digit = (PFX##key_shifted & 255U);      \
           size_t PFX##count = (BIN_INDICES)[PFX##digit];            \
@@ -94,7 +94,8 @@
             {                                                       \
               const char *PFX##p_src =                              \
                 ((const char *) (ARR1)) + PFX##i * (SIZE);          \
-              KEY_T PFX##key = GET_KEY (KEY_T, PFX##p_src);         \
+              KEY_T PFX##key =                                      \
+                GET_KEY (KEY_T, (void *) PFX##p_src);               \
               unsigned int PFX##key_shifted =                       \
                 (PFX##key >> (SHIFT));                              \
               unsigned int PFX##digit = (PFX##key_shifted & 255U);  \
