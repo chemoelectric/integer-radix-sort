@@ -64,7 +64,7 @@ CODE_COVERAGE_IGNORE_PATTERN += $(PATSHOME)/ccomp/runtime/*
 CODE_COVERAGE_IGNORE_PATTERN += $(PATSHOME)/prelude/CATS/*
 
 clean-local: code-coverage-clean tests-clean
-distclean-local: code-coverage-dist-clean ats-includes-distclean
+distclean-local: code-coverage-dist-clean
 
 #---------------------------------------------------------------------
 #
@@ -77,6 +77,11 @@ space := $(empty) $(empty)
 
 # Escape things for sed expressions, etc.
 escape = $(subst $$,\$$,$(subst ^,\^,$(subst ],\],$(subst [,\[,$(subst .,\.,$(subst \,\\,$(1)))))))
+
+#--------------------------------------------------------------------------
+
+include_HEADERS =
+include_HEADERS += integer-radix-sort.h
 
 #--------------------------------------------------------------------------
 

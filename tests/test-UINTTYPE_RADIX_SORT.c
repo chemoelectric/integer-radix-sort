@@ -101,12 +101,8 @@ test_random_arrays (void)
         p3[i] = p1[i];
       UINTTYPE_RADIX_SORT (unsigned int, p3, sz);
 
-      printf ("------------------ sz = %zu ------------------------------\n", sz);
       for (size_t i = 0; i < sz; i += 1)
-        {
-//        CHECK (p2[i] == p3[i]);
-          printf ("%u %u\n", p2[i], p3[i]);
-        }
+        CHECK (p2[i] == p3[i]);
 
       free (p1);
       free (p2);
@@ -120,10 +116,6 @@ int
 main (int argc, char *argv[])
 {
   test_random_arrays ();
-  /* unsigned int arr[5] = {5, 3, 3, 6, 1}; */
-  /* UINTTYPE_RADIX_SORT (unsigned int, arr, 5); */
-  /* for (size_t i = 0; i != 5; i += 1) */
-  /*   printf ("%u\n", arr[i]); */
   return 0;
 }
 

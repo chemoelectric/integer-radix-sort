@@ -137,27 +137,43 @@
         }                                                           \
                                                                     \
       int PFX##from1to2 = 1;                                        \
-      int PFX##all_expended = 0;                                    \
       int PFX##idigit = 0;                                          \
-      while (!PFX##all_expended && PFX##idigit != sizeof (KEY_T))   \
+      int PFX##done = 0;                                            \
+      while (!PFX##done)                                            \
         {                                                           \
-          if (PFX##from1to2)                                        \
-            INTEGER_RADIX_SORT__SORT_BY_DIGIT(PFX, KEY_T, GET_KEY,  \
-                                              (ARR), PFX##arr2,     \
-                                              (NMEMB), (SIZE),      \
-                                              PFX##all_expended,    \
-                                              8 * PFX##idigit);     \
+          if (PFX##idigit == sizeof (KEY_T))                        \
+            {                                                       \
+              if (!PFX##from1to2)                                   \
+                INTEGER_RADIX_SORT__MEMCPY ((ARR), PFX##arr2,       \
+                                            PFX##total_size);       \
+              PFX##done = 1;                                        \
+            }                                                       \
+          else if (PFX##from1to2)                                   \
+            {                                                       \
+              INTEGER_RADIX_SORT__SORT_BY_DIGIT                     \
+                (PFX, KEY_T, GET_KEY, (ARR), PFX##arr2,             \
+                 (NMEMB), (SIZE), PFX##done, 8 * PFX##idigit);      \
+              if (!PFX##done)                                       \
+                {                                                   \
+                  PFX##from1to2 = 0;                                \
+                  PFX##idigit += 1;                                 \
+                }                                                   \
+            }                                                       \
           else                                                      \
-            INTEGER_RADIX_SORT__SORT_BY_DIGIT(PFX, KEY_T, GET_KEY,  \
-                                              PFX##arr2, (ARR),     \
-                                              (NMEMB), (SIZE),      \
-                                              PFX##all_expended,    \
-                                              8 * PFX##idigit);     \
-          PFX##idigit += 1;                                         \
+            {                                                       \
+              INTEGER_RADIX_SORT__SORT_BY_DIGIT                     \
+                (PFX, KEY_T, GET_KEY, PFX##arr2, (ARR),             \
+                 (NMEMB), (SIZE), PFX##done, 8 * PFX##idigit);      \
+              if (PFX##done)                                        \
+                INTEGER_RADIX_SORT__MEMCPY ((ARR), PFX##arr2,       \
+                                            PFX##total_size);       \
+              else                                                  \
+                {                                                   \
+                  PFX##from1to2 = 1;                                \
+                  PFX##idigit += 1;                                 \
+                }                                                   \
+            }                                                       \
         }                                                           \
-      if (!PFX##from1to2)                                           \
-        INTEGER_RADIX_SORT__MEMCPY ((ARR), PFX##arr2,               \
-                                    PFX##total_size);               \
                                                                     \
       if (!PFX##use_stack)                                          \
         free (PFX##arr2);                                           \
@@ -171,7 +187,7 @@
 
 /* For example:
 
-     UINTTYPE_RADIX_SORT (uintmax_t, array1, num_elements);
+   UINTTYPE_RADIX_SORT (uintmax_t, array1, num_elements);
 
 */
 #define UINTTYPE_RADIX_SORT(KEY_T, ARR, NMEMB)                  \
