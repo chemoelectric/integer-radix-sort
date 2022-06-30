@@ -59,8 +59,6 @@
   do                                                                \
     {                                                               \
       ALL_EXPENDED = 1;                                             \
-      INTEGER_RADIX_SORT__MEMSET ((BIN_INDICES), 0,                 \
-                                  256 * sizeof (size_t));           \
       for (size_t PFX##i = 0; PFX##i != (NMEMB); PFX##i += 1)       \
         {                                                           \
           KEY_T PFX##key =                                          \
@@ -82,6 +80,8 @@
   do                                                                \
     {                                                               \
       size_t PFX##bin_indices[256];                                 \
+      INTEGER_RADIX_SORT__MEMSET (PFX##bin_indices, 0,              \
+                                  256 * sizeof (size_t));           \
       INTEGER_RADIX_SORT__COUNT_ENTRIES (PFX, KEY_T, GET_KEY,       \
                                          (ARR1), (NMEMB), (SIZE),   \
                                          PFX##bin_indices,          \
@@ -92,19 +92,19 @@
             (PFX, PFX##bin_indices);                                \
           for (size_t PFX##i = 0; PFX##i != (NMEMB); PFX##i += 1)   \
             {                                                       \
-              const char *PFX##p_src =                              \
-                ((const char *) (ARR1)) + PFX##i * (SIZE);          \
+              const void *PFX##p_src =                              \
+                ((const char *) (ARR1)) + (PFX##i * (SIZE));        \
               KEY_T PFX##key =                                      \
                 GET_KEY (KEY_T, (void *) PFX##p_src);               \
               unsigned int PFX##key_shifted =                       \
                 (PFX##key >> (SHIFT));                              \
               unsigned int PFX##digit = (PFX##key_shifted & 255U);  \
               size_t PFX##j = PFX##bin_indices[PFX##digit];         \
-              char *PFX##p_dst =                                    \
-                ((char *) (ARR2)) + PFX##j * (SIZE);                \
+              void *PFX##p_dst =                                    \
+                ((char *) (ARR2)) + (PFX##j * (SIZE));              \
               INTEGER_RADIX_SORT__MEMCPY (PFX##p_dst, PFX##p_src,   \
                                           SIZE);                    \
-              PFX##bin_indices[PFX##digit] = PFX##j;                \
+              PFX##bin_indices[PFX##digit] = PFX##j + 1;            \
             }                                                       \
         }                                                           \
     }                                                               \
@@ -128,7 +128,7 @@
         PFX##arr2 = PFX##stack;                                     \
       else                                                          \
         {                                                           \
-          PFX##arr2 = malloc (INTEGER_RADIX_SORT__SIZE_THRESHOLD);  \
+          PFX##arr2 = malloc (PFX##total_size);                     \
           if (PFX##arr2 == NULL)                                    \
             {                                                       \
               fprintf (stderr, "Memory exhausted");                 \
@@ -155,8 +155,9 @@
                                               8 * PFX##idigit);     \
           PFX##idigit += 1;                                         \
         }                                                           \
-      INTEGER_RADIX_SORT__MEMCPY ((ARR), PFX##arr2,                 \
-                                  PFX##total_size);                 \
+      if (!PFX##from1to2)                                           \
+        INTEGER_RADIX_SORT__MEMCPY ((ARR), PFX##arr2,               \
+                                    PFX##total_size);               \
                                                                     \
       if (!PFX##use_stack)                                          \
         free (PFX##arr2);                                           \

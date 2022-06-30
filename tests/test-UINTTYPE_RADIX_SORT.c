@@ -19,12 +19,112 @@
 #include <stdio.h>
 #include <integer-radix-sort.h>
 
+/*------------------------------------------------------------------*/
+/* A simple linear congruential generator.                          */
+
+/* The multiplier LCG_A comes from Steele, Guy; Vigna, Sebastiano (28
+   September 2021). "Computationally easy, spectrally good multipliers
+   for congruential pseudorandom number generators".
+   arXiv:2001.05304v3 [cs.DS] */
+#define LCG_A UINT64_C(0xf1357aea2e62a9c5)
+
+/* LCG_C must be odd. */
+#define LCG_C UINT64_C(0xbaceba11beefbead)
+
+uint64_t seed = 0;
+
+static double
+random_double (void)
+{
+  /* IEEE "binary64" or "double" has 52 bits of precision. We will
+     take the high 48 bits of the seed and divide it by 2**48, to get
+     a number 0.0 <= randnum < 1.0 */
+  const double high_48_bits = (double) (seed >> 16);
+  const double divisor = (double) (UINT64_C(1) << 48);
+  const double randnum = high_48_bits / divisor;
+
+  /* The following operation is modulo 2**64, by virtue of standard C
+     behavior for uint64_t. */
+  seed = (LCG_A * seed) + LCG_C;
+
+  return randnum;
+}
+
+static int
+random_int (int m, int n)
+{
+  return m + (int) (random_double () * (n - m + 1));
+}
+
+/*------------------------------------------------------------------*/
+
+#define MAX(x, y) (((x) < (y)) ? (y) : (x))
+
+#define CHECK(expr)                             \
+  if (expr)                                     \
+    {}                                          \
+  else                                          \
+    check_failed (__FILE__, __LINE__)
+
+static void
+check_failed (const char *file, unsigned int line)
+{
+  fprintf (stderr, "CHECK failed at %s:%u\n", file, line);
+  exit (1);
+}
+
+static int
+uintcmp (const void *px, const void *py)
+{
+  const unsigned int x = *((const unsigned int *) px);
+  const unsigned int y = *((const unsigned int *) py);
+  return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+}
+
+static void
+test_random_arrays (void)
+{
+  for (size_t sz = 0; sz <= 1000000; sz = MAX (1, 10 * sz))
+    {
+      unsigned int *p1 = malloc (sz * sizeof (unsigned int));
+      unsigned int *p2 = malloc (sz * sizeof (unsigned int));
+      unsigned int *p3 = malloc (sz * sizeof (unsigned int));
+
+      for (size_t i = 0; i < sz; i += 1)
+        p1[i] = random_int (1, 1000);
+
+      for (size_t i = 0; i < sz; i += 1)
+        p2[i] = p1[i];
+      qsort (p2, sz, sizeof (int), uintcmp);
+
+      for (size_t i = 0; i < sz; i += 1)
+        p3[i] = p1[i];
+      UINTTYPE_RADIX_SORT (unsigned int, p3, sz);
+
+      printf ("------------------ sz = %zu ------------------------------\n", sz);
+      for (size_t i = 0; i < sz; i += 1)
+        {
+//        CHECK (p2[i] == p3[i]);
+          printf ("%u %u\n", p2[i], p3[i]);
+        }
+
+      free (p1);
+      free (p2);
+      free (p3);
+    }
+}
+
+/*------------------------------------------------------------------*/
+
 int
 main (int argc, char *argv[])
 {
-  unsigned int arr[5] = {5, 4, 3, 2, 1};
-  UINTTYPE_RADIX_SORT (unsigned int, arr, 5);
-  for (size_t i = 0; i != 5; i += 1)
-    printf ("%u\n", arr[i]);
+  test_random_arrays ();
+  /* unsigned int arr[5] = {5, 3, 3, 6, 1}; */
+  /* UINTTYPE_RADIX_SORT (unsigned int, arr, 5); */
+  /* for (size_t i = 0; i != 5; i += 1) */
+  /*   printf ("%u\n", arr[i]); */
   return 0;
 }
+
+/*------------------------------------------------------------------*/
