@@ -22,9 +22,9 @@
 int
 main (int argc, char *argv[])
 {
-  int arr[5] = {5, 4, 3, 2, 1};
-  INTTYPE_RADIX_SORT (int, arr, 5);
+  unsigned int arr[5] = {5, 4, 3, 2, 1};
+  UINTTYPE_RADIX_SORT (unsigned int, arr, 5);
   for (size_t i = 0; i != 5; i += 1)
-    printf ("%d\n", arr[i]);
+    printf ("%u\n", arr[i]);
   return 0;
 }

@@ -81,16 +81,16 @@ escape = $(subst $$,\$$,$(subst ^,\^,$(subst ],\],$(subst [,\[,$(subst .,\.,$(su
 #--------------------------------------------------------------------------
 
 TESTS =
-TESTS += tests/test-INTTYPE_RADIX_SORT
+TESTS += tests/test-UINTTYPE_RADIX_SORT
 
-EXTRA_PROGRAMS += tests/test-INTTYPE_RADIX_SORT
-CLEANFILES += tests/test-INTTYPE_RADIX_SORT
-tests_test_INTTYPE_RADIX_SORT_SOURCES =
-tests_test_INTTYPE_RADIX_SORT_SOURCES += tests/test-INTTYPE_RADIX_SORT.c
-#tests_test_INTTYPE_RADIX_SORT_DEPENDENCIES =
-#tests_test_INTTYPE_RADIX_SORT_DEPENDENCIES += libinteger-radix-sort.la
-#tests_test_INTTYPE_RADIX_SORT_LDADD =
-#tests_test_INTTYPE_RADIX_SORT_LDADD += libinteger-radix-sort.la
+EXTRA_PROGRAMS += tests/test-UINTTYPE_RADIX_SORT
+CLEANFILES += tests/test-UINTTYPE_RADIX_SORT
+tests_test_UINTTYPE_RADIX_SORT_SOURCES =
+tests_test_UINTTYPE_RADIX_SORT_SOURCES += tests/test-UINTTYPE_RADIX_SORT.c
+#tests_test_UINTTYPE_RADIX_SORT_DEPENDENCIES =
+#tests_test_UINTTYPE_RADIX_SORT_DEPENDENCIES += libinteger-radix-sort.la
+#tests_test_UINTTYPE_RADIX_SORT_LDADD =
+#tests_test_UINTTYPE_RADIX_SORT_LDADD += libinteger-radix-sort.la
 
 
 

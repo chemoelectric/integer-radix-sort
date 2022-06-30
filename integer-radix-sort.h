@@ -168,7 +168,12 @@
                                          KEY_T, GET_KEY,            \
                                          (ARR), (NMEMB), (SIZE))
 
-#define INTTYPE_RADIX_SORT(KEY_T, ARR, NMEMB)                   \
+/* For example:
+
+     UINTTYPE_RADIX_SORT (uintmax_t, array1, num_elements);
+
+*/
+#define UINTTYPE_RADIX_SORT(KEY_T, ARR, NMEMB)                  \
   INTEGER_RADIX_SORT (KEY_T, (ARR), (NMEMB), sizeof (KEY_T),    \
                       INTEGER_RADIX_SORT__DEREFERENCE)
 

@@ -113,8 +113,8 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 bin_PROGRAMS =
-EXTRA_PROGRAMS = tests/test-INTTYPE_RADIX_SORT$(EXEEXT)
-TESTS = tests/test-INTTYPE_RADIX_SORT$(EXEEXT)
+EXTRA_PROGRAMS = tests/test-UINTTYPE_RADIX_SORT$(EXEEXT)
+TESTS = tests/test-UINTTYPE_RADIX_SORT$(EXEEXT)
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_ac_append_to_file.m4 \
@@ -171,13 +171,13 @@ am__uninstall_files_from_dir = { \
   }
 LTLIBRARIES = $(lib_LTLIBRARIES)
 am__dirstamp = $(am__leading_dot)dirstamp
-am_tests_test_INTTYPE_RADIX_SORT_OBJECTS =  \
-	tests/test-INTTYPE_RADIX_SORT.$(OBJEXT)
-tests_test_INTTYPE_RADIX_SORT_OBJECTS =  \
-	$(am_tests_test_INTTYPE_RADIX_SORT_OBJECTS)
-tests_test_INTTYPE_RADIX_SORT_LDADD = $(LDADD)
+am_tests_test_UINTTYPE_RADIX_SORT_OBJECTS =  \
+	tests/test-UINTTYPE_RADIX_SORT.$(OBJEXT)
+tests_test_UINTTYPE_RADIX_SORT_OBJECTS =  \
+	$(am_tests_test_UINTTYPE_RADIX_SORT_OBJECTS)
+tests_test_UINTTYPE_RADIX_SORT_LDADD = $(LDADD)
 am__DEPENDENCIES_1 =
-tests_test_INTTYPE_RADIX_SORT_DEPENDENCIES = $(am__DEPENDENCIES_1)
+tests_test_UINTTYPE_RADIX_SORT_DEPENDENCIES = $(am__DEPENDENCIES_1)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
@@ -197,7 +197,7 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/build-aux/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = tests/$(DEPDIR)/test-INTTYPE_RADIX_SORT.Po
+am__depfiles_remade = tests/$(DEPDIR)/test-UINTTYPE_RADIX_SORT.Po
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -217,8 +217,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(tests_test_INTTYPE_RADIX_SORT_SOURCES)
-DIST_SOURCES = $(tests_test_INTTYPE_RADIX_SORT_SOURCES)
+SOURCES = $(tests_test_UINTTYPE_RADIX_SORT_SOURCES)
+DIST_SOURCES = $(tests_test_UINTTYPE_RADIX_SORT_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -615,7 +615,7 @@ AUTOMAKE_OPTIONS = foreign subdir-objects
 @CODE_COVERAGE_ENABLED_TRUE@AM_DISTCHECK_CONFIGURE_FLAGS := $(AM_DISTCHECK_CONFIGURE_FLAGS) --disable-code-coverage
 EXTRA_DIST = $(srcdir)/silent-rules.mk COPYING INSTALL README AUTHORS
 MOSTLYCLEANFILES = 
-CLEANFILES = tests/test-INTTYPE_RADIX_SORT
+CLEANFILES = tests/test-UINTTYPE_RADIX_SORT
 DISTCLEANFILES = Makefile GNUmakefile
 BUILT_SOURCES = 
 AM_CPPFLAGS = -I$(builddir) -I$(srcdir) -I$(PATSHOME) \
@@ -639,8 +639,8 @@ space := $(empty) $(empty)
 
 # Escape things for sed expressions, etc.
 escape = $(subst $$,\$$,$(subst ^,\^,$(subst ],\],$(subst [,\[,$(subst .,\.,$(subst \,\\,$(1)))))))
-tests_test_INTTYPE_RADIX_SORT_SOURCES =  \
-	tests/test-INTTYPE_RADIX_SORT.c
+tests_test_UINTTYPE_RADIX_SORT_SOURCES =  \
+	tests/test-UINTTYPE_RADIX_SORT.c
 all: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -770,12 +770,12 @@ tests/$(am__dirstamp):
 tests/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) tests/$(DEPDIR)
 	@: > tests/$(DEPDIR)/$(am__dirstamp)
-tests/test-INTTYPE_RADIX_SORT.$(OBJEXT): tests/$(am__dirstamp) \
+tests/test-UINTTYPE_RADIX_SORT.$(OBJEXT): tests/$(am__dirstamp) \
 	tests/$(DEPDIR)/$(am__dirstamp)
 
-tests/test-INTTYPE_RADIX_SORT$(EXEEXT): $(tests_test_INTTYPE_RADIX_SORT_OBJECTS) $(tests_test_INTTYPE_RADIX_SORT_DEPENDENCIES) $(EXTRA_tests_test_INTTYPE_RADIX_SORT_DEPENDENCIES) tests/$(am__dirstamp)
-	@rm -f tests/test-INTTYPE_RADIX_SORT$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(tests_test_INTTYPE_RADIX_SORT_OBJECTS) $(tests_test_INTTYPE_RADIX_SORT_LDADD) $(LIBS)
+tests/test-UINTTYPE_RADIX_SORT$(EXEEXT): $(tests_test_UINTTYPE_RADIX_SORT_OBJECTS) $(tests_test_UINTTYPE_RADIX_SORT_DEPENDENCIES) $(EXTRA_tests_test_UINTTYPE_RADIX_SORT_DEPENDENCIES) tests/$(am__dirstamp)
+	@rm -f tests/test-UINTTYPE_RADIX_SORT$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(tests_test_UINTTYPE_RADIX_SORT_OBJECTS) $(tests_test_UINTTYPE_RADIX_SORT_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -784,7 +784,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-INTTYPE_RADIX_SORT.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-UINTTYPE_RADIX_SORT.Po@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -1071,9 +1071,9 @@ recheck: all
 	        am__force_recheck=am--force-recheck \
 	        TEST_LOGS="$$log_list"; \
 	exit $$?
-tests/test-INTTYPE_RADIX_SORT.log: tests/test-INTTYPE_RADIX_SORT$(EXEEXT)
-	@p='tests/test-INTTYPE_RADIX_SORT$(EXEEXT)'; \
-	b='tests/test-INTTYPE_RADIX_SORT'; \
+tests/test-UINTTYPE_RADIX_SORT.log: tests/test-UINTTYPE_RADIX_SORT$(EXEEXT)
+	@p='tests/test-UINTTYPE_RADIX_SORT$(EXEEXT)'; \
+	b='tests/test-UINTTYPE_RADIX_SORT'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -1325,7 +1325,7 @@ clean-am: clean-binPROGRAMS clean-generic clean-libLTLIBRARIES \
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-		-rm -f tests/$(DEPDIR)/test-INTTYPE_RADIX_SORT.Po
+		-rm -f tests/$(DEPDIR)/test-UINTTYPE_RADIX_SORT.Po
 	-rm -f GNUmakefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-libtool distclean-local distclean-tags
@@ -1374,7 +1374,7 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-		-rm -f tests/$(DEPDIR)/test-INTTYPE_RADIX_SORT.Po
+		-rm -f tests/$(DEPDIR)/test-UINTTYPE_RADIX_SORT.Po
 	-rm -f GNUmakefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
@@ -1531,10 +1531,10 @@ code-coverage-capture-hook:
 
 clean-local: code-coverage-clean tests-clean
 distclean-local: code-coverage-dist-clean ats-includes-distclean
-#tests_test_INTTYPE_RADIX_SORT_DEPENDENCIES =
-#tests_test_INTTYPE_RADIX_SORT_DEPENDENCIES += libinteger-radix-sort.la
-#tests_test_INTTYPE_RADIX_SORT_LDADD =
-#tests_test_INTTYPE_RADIX_SORT_LDADD += libinteger-radix-sort.la
+#tests_test_UINTTYPE_RADIX_SORT_DEPENDENCIES =
+#tests_test_UINTTYPE_RADIX_SORT_DEPENDENCIES += libinteger-radix-sort.la
+#tests_test_UINTTYPE_RADIX_SORT_LDADD =
+#tests_test_UINTTYPE_RADIX_SORT_LDADD += libinteger-radix-sort.la
 
 # TESTS += tests/test-stability
 
