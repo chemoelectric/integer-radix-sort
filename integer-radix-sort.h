@@ -32,7 +32,13 @@
 #define INTEGER_RADIX_SORT__MEMCPY memcpy
 #endif
 
+#define INTEGER_RADIX_SORT__PREFIX _integer_radix_sort__
+
 #define INTEGER_RADIX_SORT__SIZE_THRESHOLD 2048
+
+#define INTEGER_RADIX_SORT__IDENTITY(X) (X)
+#define INTEGER_RADIX_SORT__SUBTRACT_MIN_KEY(X) \
+  ((X) - INTEGER_RADIX_SORT__PREFIX##min_key)
 
 #define INTEGER_RADIX_SORT__DEREFERENCE(KEY_T, PTR) \
   (*(const KEY_T *)(PTR))
@@ -53,17 +59,22 @@
     }                                                               \
   while (0)
 
-#define INTEGER_RADIX_SORT__COUNT_ENTRIES(PFX, KEY_T, GET_KEY, ARR, \
-                                          NMEMB, SIZE, BIN_INDICES, \
+#define INTEGER_RADIX_SORT__COUNT_ENTRIES(PFX, KEY_T, UKEY_T,       \
+                                          GET_KEY, MODIFY_KEY,      \
+                                          ARR, NMEMB, SIZE,         \
+                                          BIN_INDICES,              \
                                           ALL_EXPENDED, SHIFT)      \
   do                                                                \
     {                                                               \
       ALL_EXPENDED = 1;                                             \
       for (size_t PFX##i = 0; PFX##i != (NMEMB); PFX##i += 1)       \
         {                                                           \
-          KEY_T PFX##key =                                          \
-            GET_KEY                                                 \
-            (KEY_T, (void *) ((char *) (ARR)) + PFX##i * (SIZE));   \
+          UKEY_T PFX##key =                                         \
+            (UKEY_T)                                                \
+            (MODIFY_KEY                                             \
+             (GET_KEY                                               \
+              (KEY_T,                                               \
+               (void *) ((char *) (ARR)) + PFX##i * (SIZE))));      \
           unsigned int PFX##key_shifted = (PFX##key >> (SHIFT));    \
           unsigned int PFX##digit = (PFX##key_shifted & 255U);      \
           size_t PFX##count = (BIN_INDICES)[PFX##digit];            \
@@ -74,7 +85,8 @@
     }                                                               \
   while (0)
 
-#define INTEGER_RADIX_SORT__SORT_BY_DIGIT(PFX, KEY_T, GET_KEY,      \
+#define INTEGER_RADIX_SORT__SORT_BY_DIGIT(PFX, KEY_T, UKEY_T,       \
+                                          GET_KEY, MODIFY_KEY,      \
                                           ARR1, ARR2, NMEMB, SIZE,  \
                                           ALL_EXPENDED, SHIFT)      \
   do                                                                \
@@ -82,7 +94,8 @@
       size_t PFX##bin_indices[256];                                 \
       INTEGER_RADIX_SORT__MEMSET (PFX##bin_indices, 0,              \
                                   256 * sizeof (size_t));           \
-      INTEGER_RADIX_SORT__COUNT_ENTRIES (PFX, KEY_T, GET_KEY,       \
+      INTEGER_RADIX_SORT__COUNT_ENTRIES (PFX, KEY_T, UKEY_T,        \
+                                         GET_KEY, MODIFY_KEY,       \
                                          (ARR1), (NMEMB), (SIZE),   \
                                          PFX##bin_indices,          \
                                          ALL_EXPENDED, (SHIFT));    \
@@ -94,8 +107,10 @@
             {                                                       \
               const void *PFX##p_src =                              \
                 ((const char *) (ARR1)) + (PFX##i * (SIZE));        \
-              KEY_T PFX##key =                                      \
-                GET_KEY (KEY_T, (void *) PFX##p_src);               \
+              UKEY_T PFX##key =                                     \
+                (UKEY_T)                                            \
+                (MODIFY_KEY                                         \
+                 (GET_KEY (KEY_T, (void *) PFX##p_src)));           \
               unsigned int PFX##key_shifted =                       \
                 (PFX##key >> (SHIFT));                              \
               unsigned int PFX##digit = (PFX##key_shifted & 255U);  \
@@ -110,7 +125,8 @@
     }                                                               \
   while (0)
 
-#define INTEGER_RADIX_SORT__INTEGER_RADIX_SORT(PFX, KEY_T, GET_KEY, \
+#define INTEGER_RADIX_SORT__INTEGER_RADIX_SORT(PFX, KEY_T, UKEY_T,  \
+                                               GET_KEY, MODIFY_KEY, \
                                                ARR, NMEMB, SIZE)    \
   do                                                                \
     {                                                               \
@@ -141,7 +157,7 @@
       int PFX##done = 0;                                            \
       while (!PFX##done)                                            \
         {                                                           \
-          if (PFX##idigit == sizeof (KEY_T))                        \
+          if (PFX##idigit == sizeof (UKEY_T))                       \
             {                                                       \
               if (!PFX##from1to2)                                   \
                 INTEGER_RADIX_SORT__MEMCPY ((ARR), PFX##arr2,       \
@@ -151,8 +167,9 @@
           else if (PFX##from1to2)                                   \
             {                                                       \
               INTEGER_RADIX_SORT__SORT_BY_DIGIT                     \
-                (PFX, KEY_T, GET_KEY, (ARR), PFX##arr2,             \
-                 (NMEMB), (SIZE), PFX##done, 8 * PFX##idigit);      \
+                (PFX, KEY_T, UKEY_T, GET_KEY, MODIFY_KEY,           \
+                 (ARR), PFX##arr2, (NMEMB), (SIZE), PFX##done,      \
+                 8 * PFX##idigit);                                  \
               if (!PFX##done)                                       \
                 {                                                   \
                   PFX##from1to2 = 0;                                \
@@ -162,8 +179,9 @@
           else                                                      \
             {                                                       \
               INTEGER_RADIX_SORT__SORT_BY_DIGIT                     \
-                (PFX, KEY_T, GET_KEY, PFX##arr2, (ARR),             \
-                 (NMEMB), (SIZE), PFX##done, 8 * PFX##idigit);      \
+                (PFX, KEY_T, UKEY_T, GET_KEY, MODIFY_KEY,           \
+                 PFX##arr2, (ARR),(NMEMB), (SIZE), PFX##done,       \
+                 8 * PFX##idigit);                                  \
               if (PFX##done)                                        \
                 INTEGER_RADIX_SORT__MEMCPY ((ARR), PFX##arr2,       \
                                             PFX##total_size);       \
@@ -186,37 +204,46 @@
   do                                                                \
     {                                                               \
       const char *PFX##p = (ARR);                                   \
-      KEY_T PFX##min_key = GET_KEY (KEY_T, (void *) PFX##p);        \
+      KEY_T PFX##min_key =                                          \
+        (KEY_T) (GET_KEY (KEY_T, (void *) PFX##p));                 \
       for (size_t PFX##i = 1; PFX##i != (NMEMB); PFX##i += 1)       \
         {                                                           \
           PFX##p += (SIZE);                                         \
-          KEY_T PFX##key = GET_KEY (KEY_T, (void *) PFX##p);        \
+          KEY_T PFX##key =                                          \
+            (KEY_T) (GET_KEY (KEY_T, (void *) PFX##p));             \
           if (PFX##key < PFX##min_key)                              \
             PFX##min_key = PFX##key;                                \
         }                                                           \
-      MIN_KEY = PFX##key;                                           \
+      MIN_KEY = PFX##min_key;                                       \
     }                                                               \
   while (0)
 
-#define INTEGER_RADIX_SORT__SIGNED_KEY_SORT(PFX, KEY_T, GET_KEY,    \
-                                            ARR, NMEMB, SIZE)       \
-  do                                                                \
-    {                                                               \
-      if (0 < (NMEMB))                                              \
-        {                                                           \
-          size_t PFX##min_key;                                      \
-          INTEGER_RADIX_SORT__FIND_MINIMUM_KEY                      \
-            (PFX, KEY_T,  GET_KEY, (ARR), (NMEMB), (SIZE),          \
-             MIN_KEY);                                              \
-          FIXME;                                                    \
-        }                                                           \
-    }                                                               \
+#define INTEGER_RADIX_SORT__SIGNED_KEY_SORT(PFX, KEY_T, UKEY_T, \
+                                            GET_KEY,            \
+                                            ARR, NMEMB, SIZE)   \
+  do                                                            \
+    {                                                           \
+      _Static_assert                                            \
+        (sizeof (KEY_T) == sizeof (UKEY_T),                     \
+         "types KEY_T and UKEY_T must have the same size");     \
+      if ((NMEMB) != 0)                                         \
+        {                                                       \
+          KEY_T PFX##min_key;                                   \
+          INTEGER_RADIX_SORT__FIND_MINIMUM_KEY                  \
+            (PFX, KEY_T, GET_KEY, (ARR), (NMEMB), (SIZE),       \
+             PFX##min_key);                                     \
+          INTEGER_RADIX_SORT__INTEGER_RADIX_SORT                \
+            (PFX, KEY_T, UKEY_T, GET_KEY,                       \
+             INTEGER_RADIX_SORT__SUBTRACT_MIN_KEY,              \
+             (ARR), (NMEMB), (SIZE));                           \
+        }                                                       \
+    }                                                           \
   while (0)
 
 /* For example:
 
    UINTTYPE_KEYED_RADIX_SORT (unsigned int, array1, num_elements,
-                              sizeof (record *), get_key);
+   sizeof (record *), get_key);
 
 */
 #define UINTTYPE_KEYED_RADIX_SORT(KEY_T, ARR, NMEMB, SIZE, GET_KEY) \
@@ -226,8 +253,29 @@
       size_t PFX##nmemb = (NMEMB);                                  \
       size_t PFX##size = (SIZE);                                    \
       INTEGER_RADIX_SORT__INTEGER_RADIX_SORT                        \
-        (_integer_radix_sort__, KEY_T, GET_KEY, PFX##arr,           \
-         PFX##nmemb, PFX##size);                                    \
+        (INTEGER_RADIX_SORT__PREFIX, KEY_T, KEY_T, GET_KEY,         \
+         INTEGER_RADIX_SORT__IDENTITY,                              \
+         PFX##arr, PFX##nmemb, PFX##size);                          \
+    }                                                               \
+  while (0)
+
+/* For example:
+
+   INTTYPE_KEYED_RADIX_SORT (short int, unsigned short int,
+   array1, num_elements,
+   sizeof (record *), get_key);
+
+*/
+#define INTTYPE_KEYED_RADIX_SORT(KEY_T, UKEY_T, ARR, NMEMB, SIZE,   \
+                                 GET_KEY)                           \
+  do                                                                \
+    {                                                               \
+      void *PFX##arr = (ARR);                                       \
+      size_t PFX##nmemb = (NMEMB);                                  \
+      size_t PFX##size = (SIZE);                                    \
+      INTEGER_RADIX_SORT__SIGNED_KEY_SORT                           \
+        (INTEGER_RADIX_SORT__PREFIX, KEY_T, UKEY_T, GET_KEY,        \
+         PFX##arr, PFX##nmemb, PFX##size);                          \
     }                                                               \
   while (0)
 
@@ -239,5 +287,15 @@
 #define UINTTYPE_RADIX_SORT(KEY_T, ARR, NMEMB)                      \
   UINTTYPE_KEYED_RADIX_SORT (KEY_T, (ARR), (NMEMB), sizeof (KEY_T), \
                              INTEGER_RADIX_SORT__DEREFERENCE)
+
+/* For example:
+
+   INTTYPE_RADIX_SORT (intmax_t, uintmax_t, array1, num_elements);
+
+*/
+#define INTTYPE_RADIX_SORT(KEY_T, UKEY_T, ARR, NMEMB)           \
+  INTTYPE_KEYED_RADIX_SORT (KEY_T, UKEY_T, (ARR), (NMEMB),      \
+                            sizeof (KEY_T),                     \
+                            INTEGER_RADIX_SORT__DEREFERENCE)
 
 #endif /* INTEGER_RADIX_SORT_H_HEADER_GUARD__ */

@@ -77,37 +77,37 @@ check_failed (const char *file, unsigned int line)
 }
 
 static int
-uintcmp (const void *px, const void *py)
+intcmp (const void *px, const void *py)
 {
-  const unsigned int x = *((const unsigned int *) px);
-  const unsigned int y = *((const unsigned int *) py);
+  const int x = *((const int *) px);
+  const int y = *((const int *) py);
   return ((x < y) ? -1 : ((x > y) ? 1 : 0));
 }
 
 static void
 test_random_arrays (void)
 {
-  printf ("Random unsigned int in 1..1000\n");
+  printf ("Random int in -1000..1000\n");
   for (size_t sz = 0; sz <= MAX_SZ; sz = MAX (1, 10 * sz))
     {
-      unsigned int *p1 = malloc (sz * sizeof (unsigned int));
-      unsigned int *p2 = malloc (sz * sizeof (unsigned int));
-      unsigned int *p3 = malloc (sz * sizeof (unsigned int));
+      int *p1 = malloc (sz * sizeof (int));
+      int *p2 = malloc (sz * sizeof (int));
+      int *p3 = malloc (sz * sizeof (int));
 
       for (size_t i = 0; i < sz; i += 1)
-        p1[i] = random_int (1, 1000);
+        p1[i] = random_int (-1000, 1000);
 
       for (size_t i = 0; i < sz; i += 1)
         p2[i] = p1[i];
       clock_t tq1 = clock ();
-      qsort (p2, sz, sizeof (unsigned int), uintcmp);
+      qsort (p2, sz, sizeof (int), intcmp);
       clock_t tq2 = clock ();
       long double tq = ((long double) (tq2 - tq1)) / CLOCKS_PER_SEC;
 
       for (size_t i = 0; i < sz; i += 1)
         p3[i] = p1[i];
       clock_t tr1 = clock ();
-      UINTTYPE_RADIX_SORT (unsigned int, p3, sz);
+      INTTYPE_RADIX_SORT (int, unsigned int, p3, sz);
       clock_t tr2 = clock ();
       long double tr = ((long double) (tr2 - tr1)) / CLOCKS_PER_SEC;
 
