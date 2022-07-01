@@ -17,6 +17,7 @@
 */
 
 #include <stdio.h>
+#include <time.h>
 #include <integer-radix-sort.h>
 
 /*------------------------------------------------------------------*/
@@ -95,14 +96,22 @@ test_random_arrays (void)
 
       for (size_t i = 0; i < sz; i += 1)
         p2[i] = p1[i];
+      clock_t tq1 = clock ();
       qsort (p2, sz, sizeof (int), uintcmp);
+      clock_t tq2 = clock ();
+      long double tq = ((long double) (tq2 - tq1)) / CLOCKS_PER_SEC;
 
       for (size_t i = 0; i < sz; i += 1)
         p3[i] = p1[i];
+      clock_t tr1 = clock ();
       UINTTYPE_RADIX_SORT (unsigned int, p3, sz);
+      clock_t tr2 = clock ();
+      long double tr = ((long double) (tr2 - tr1)) / CLOCKS_PER_SEC;
 
       for (size_t i = 0; i < sz; i += 1)
         CHECK (p2[i] == p3[i]);
+
+      printf ("qsort: %Lf   radix: %Lf\n", tq, tr);
 
       free (p1);
       free (p2);
