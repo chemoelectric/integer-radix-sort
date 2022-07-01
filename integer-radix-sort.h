@@ -180,7 +180,14 @@
     }                                                               \
   while (0)
 
-#define INTEGER_RADIX_SORT(KEY_T, ARR, NMEMB, SIZE, GET_KEY)        \
+
+/* For example:
+
+   UINTTYPE_KEYED_RADIX_SORT (unsigned int, array1, num_elements,
+                              sizeof (record *), get_key);
+
+*/
+#define UINTTYPE_KEYED_RADIX_SORT(KEY_T, ARR, NMEMB, SIZE, GET_KEY) \
   INTEGER_RADIX_SORT__INTEGER_RADIX_SORT(_integer_radix_sort__,     \
                                          KEY_T, GET_KEY,            \
                                          (ARR), (NMEMB), (SIZE))
@@ -190,8 +197,8 @@
    UINTTYPE_RADIX_SORT (uintmax_t, array1, num_elements);
 
 */
-#define UINTTYPE_RADIX_SORT(KEY_T, ARR, NMEMB)                  \
-  INTEGER_RADIX_SORT (KEY_T, (ARR), (NMEMB), sizeof (KEY_T),    \
-                      INTEGER_RADIX_SORT__DEREFERENCE)
+#define UINTTYPE_RADIX_SORT(KEY_T, ARR, NMEMB)                      \
+  UINTTYPE_KEYED_RADIX_SORT (KEY_T, (ARR), (NMEMB), sizeof (KEY_T), \
+                             INTEGER_RADIX_SORT__DEREFERENCE)
 
 #endif /* INTEGER_RADIX_SORT_H_HEADER_GUARD__ */
