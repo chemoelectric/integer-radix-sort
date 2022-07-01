@@ -85,6 +85,7 @@ uintcmp (const void *px, const void *py)
 static void
 test_random_arrays (void)
 {
+  printf ("Random unsigned int in 1..1000\n");
   for (size_t sz = 0; sz <= 1000000; sz = MAX (1, 10 * sz))
     {
       unsigned int *p1 = malloc (sz * sizeof (unsigned int));
@@ -111,7 +112,7 @@ test_random_arrays (void)
       for (size_t i = 0; i < sz; i += 1)
         CHECK (p2[i] == p3[i]);
 
-      printf ("qsort: %Lf   radix: %Lf\n", tq, tr);
+      printf ("  size:%8zu   qsort: %Lf   radix: %Lf\n", sz, tq, tr);
 
       free (p1);
       free (p2);
