@@ -180,6 +180,38 @@
     }                                                               \
   while (0)
 
+#define INTEGER_RADIX_SORT__FIND_MINIMUM_KEY(PFX, KEY_T, GET_KEY,   \
+                                             ARR, NMEMB, SIZE,      \
+                                             MIN_KEY)               \
+  do                                                                \
+    {                                                               \
+      const char *PFX##p = (ARR);                                   \
+      KEY_T PFX##min_key = GET_KEY (KEY_T, (void *) PFX##p);        \
+      for (size_t PFX##i = 1; PFX##i != (NMEMB); PFX##i += 1)       \
+        {                                                           \
+          PFX##p += (SIZE);                                         \
+          KEY_T PFX##key = GET_KEY (KEY_T, (void *) PFX##p);        \
+          if (PFX##key < PFX##min_key)                              \
+            PFX##min_key = PFX##key;                                \
+        }                                                           \
+      MIN_KEY = PFX##key;                                           \
+    }                                                               \
+  while (0)
+
+#define INTEGER_RADIX_SORT__SIGNED_KEY_SORT(PFX, KEY_T, GET_KEY,    \
+                                            ARR, NMEMB, SIZE)       \
+  do                                                                \
+    {                                                               \
+      if (0 < (NMEMB))                                              \
+        {                                                           \
+          size_t PFX##min_key;                                      \
+          INTEGER_RADIX_SORT__FIND_MINIMUM_KEY                      \
+            (PFX, KEY_T,  GET_KEY, (ARR), (NMEMB), (SIZE),          \
+             MIN_KEY);                                              \
+          FIXME;                                                    \
+        }                                                           \
+    }                                                               \
+  while (0)
 
 /* For example:
 
@@ -188,9 +220,16 @@
 
 */
 #define UINTTYPE_KEYED_RADIX_SORT(KEY_T, ARR, NMEMB, SIZE, GET_KEY) \
-  INTEGER_RADIX_SORT__INTEGER_RADIX_SORT(_integer_radix_sort__,     \
-                                         KEY_T, GET_KEY,            \
-                                         (ARR), (NMEMB), (SIZE))
+  do                                                                \
+    {                                                               \
+      void *PFX##arr = (ARR);                                       \
+      size_t PFX##nmemb = (NMEMB);                                  \
+      size_t PFX##size = (SIZE);                                    \
+      INTEGER_RADIX_SORT__INTEGER_RADIX_SORT                        \
+        (_integer_radix_sort__, KEY_T, GET_KEY, PFX##arr,           \
+         PFX##nmemb, PFX##size);                                    \
+    }                                                               \
+  while (0)
 
 /* For example:
 
