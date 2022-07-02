@@ -93,57 +93,11 @@ EXTRA_PROGRAMS += tests/test-UINTTYPE_RADIX_SORT
 CLEANFILES += tests/test-UINTTYPE_RADIX_SORT
 tests_test_UINTTYPE_RADIX_SORT_SOURCES =
 tests_test_UINTTYPE_RADIX_SORT_SOURCES += tests/test-UINTTYPE_RADIX_SORT.c
-#tests_test_UINTTYPE_RADIX_SORT_DEPENDENCIES =
-#tests_test_UINTTYPE_RADIX_SORT_DEPENDENCIES += libinteger-radix-sort.la
-#tests_test_UINTTYPE_RADIX_SORT_LDADD =
-#tests_test_UINTTYPE_RADIX_SORT_LDADD += libinteger-radix-sort.la
 
 EXTRA_PROGRAMS += tests/test-INTTYPE_RADIX_SORT
 CLEANFILES += tests/test-INTTYPE_RADIX_SORT
 tests_test_INTTYPE_RADIX_SORT_SOURCES =
 tests_test_INTTYPE_RADIX_SORT_SOURCES += tests/test-INTTYPE_RADIX_SORT.c
-#tests_test_INTTYPE_RADIX_SORT_DEPENDENCIES =
-#tests_test_INTTYPE_RADIX_SORT_DEPENDENCIES += libinteger-radix-sort.la
-#tests_test_INTTYPE_RADIX_SORT_LDADD =
-#tests_test_INTTYPE_RADIX_SORT_LDADD += libinteger-radix-sort.la
-
-
-
-# TESTS += tests/test-stability
-
-# EXTRA_PROGRAMS += tests/test-random-arrays
-# CLEANFILES += tests/test-random-arrays
-# CLEANFILES += tests/test-random-arrays_tests.c
-# tests_test_random_arrays_SOURCES =
-# tests_test_random_arrays_SOURCES += tests/test-random-arrays_tests.c
-# tests_test_random_arrays_DEPENDENCIES =
-# tests_test_random_arrays_DEPENDENCIES += tests/test-random-arrays.dats
-# tests_test_random_arrays_DEPENDENCIES += libats2-integer-radix-sort.la
-# tests_test_random_arrays_DEPENDENCIES += $(INTTYPEEGER_RADIX_SORT_HATS)
-# tests_test_random_arrays_CPPFLAGS =
-# tests_test_random_arrays_CPPFLAGS += $(AM_CPPFLAGS)
-# tests_test_random_arrays_CPPFLAGS += -DATS_MEMALLOC_LIBC
-# tests_test_random_arrays_LDADD =
-# tests_test_random_arrays_LDADD += libats2-integer-radix-sort.la
-# EXTRA_DIST += tests/test-random-arrays.dats
-# tests/test-random-arrays_tests.c: tests/test-random-arrays.dats
-
-# EXTRA_PROGRAMS += tests/test-stability
-# CLEANFILES += tests/test-stability
-# CLEANFILES += tests/test-stability_tests.c
-# tests_test_stability_SOURCES =
-# tests_test_stability_SOURCES += tests/test-stability_tests.c
-# tests_test_stability_DEPENDENCIES =
-# tests_test_stability_DEPENDENCIES += tests/test-stability.dats
-# tests_test_stability_DEPENDENCIES += libats2-integer-radix-sort.la
-# tests_test_stability_DEPENDENCIES += $(INTEGER_RADIX_SORT_HATS)
-# tests_test_stability_CPPFLAGS =
-# tests_test_stability_CPPFLAGS += $(AM_CPPFLAGS)
-# tests_test_stability_CPPFLAGS += -DATS_MEMALLOC_LIBC
-# tests_test_stability_LDADD =
-# tests_test_stability_LDADD += libats2-integer-radix-sort.la
-# EXTRA_DIST += tests/test-stability.dats
-# tests/test-stability_tests.c: tests/test-stability.dats
 
 tests-clean:
 	-rm -f tests/*.$(OBJEXT)
@@ -151,7 +105,7 @@ tests-clean:
 
 #--------------------------------------------------------------------------
 
-#nodist_pkgconfig_DATA += integer-radix-sort.pc
+nodist_pkgconfig_DATA += integer-radix-sort.pc
 
 #--------------------------------------------------------------------------
 # local variables:
