@@ -88,6 +88,7 @@ include_HEADERS += integer-radix-sort.h
 TESTS =
 TESTS += tests/test-UINTTYPE_RADIX_SORT
 TESTS += tests/test-INTTYPE_RADIX_SORT
+TESTS += tests/test-stability
 
 EXTRA_PROGRAMS += tests/test-UINTTYPE_RADIX_SORT
 CLEANFILES += tests/test-UINTTYPE_RADIX_SORT
@@ -98,6 +99,11 @@ EXTRA_PROGRAMS += tests/test-INTTYPE_RADIX_SORT
 CLEANFILES += tests/test-INTTYPE_RADIX_SORT
 tests_test_INTTYPE_RADIX_SORT_SOURCES =
 tests_test_INTTYPE_RADIX_SORT_SOURCES += tests/test-INTTYPE_RADIX_SORT.c
+
+EXTRA_PROGRAMS += tests/test-stability
+CLEANFILES += tests/test-stability
+tests_test_stability_SOURCES =
+tests_test_stability_SOURCES += tests/test-stability.c
 
 tests-clean:
 	-rm -f tests/*.$(OBJEXT)

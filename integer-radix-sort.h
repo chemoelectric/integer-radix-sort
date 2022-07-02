@@ -242,8 +242,9 @@
 
 /* For example:
 
+   #define GET_KEY(KEY_T, PTR) get_key (PTR)
    UINTTYPE_KEYED_RADIX_SORT (unsigned int, array1, num_elements,
-   sizeof (record *), get_key);
+   sizeof (record *), GET_KEY);
 
 */
 #define UINTTYPE_KEYED_RADIX_SORT(KEY_T, ARR, NMEMB, SIZE, GET_KEY) \
@@ -261,9 +262,10 @@
 
 /* For example:
 
+   #define GET_KEY(KEY_T, PTR) get_key (PTR)k
    INTTYPE_KEYED_RADIX_SORT (short int, unsigned short int,
    array1, num_elements,
-   sizeof (record *), get_key);
+   sizeof (record *), GET_key);
 
 */
 #define INTTYPE_KEYED_RADIX_SORT(KEY_T, UKEY_T, ARR, NMEMB, SIZE,   \
