@@ -1,2 +1,11 @@
 Integer-keyed stable radix sort for C
 -------------------------------------
+
+This sort tends to much faster than qsort(3), and is stable. However,
+the keys must belong to one of the C compiler’s integer types.
+
+The ‘radix’ for the sort is 256. In other words, the sorting is done
+one byte position at a time.
+
+This package is a translation into C macros of a similar sort I wrote
+as ATS2 template functions.
