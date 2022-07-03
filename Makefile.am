@@ -52,16 +52,12 @@ DISTCLEANFILES += GNUmakefile
 
 AM_CPPFLAGS += -I$(builddir)
 AM_CPPFLAGS += -I$(srcdir)
-AM_CPPFLAGS += -I$(PATSHOME)
-AM_CPPFLAGS += -I$(PATSHOME)/ccomp/runtime/
 
 LDADD += $(CODE_COVERAGE_LIBS)
 
 CODE_COVERAGE_IGNORE_PATTERN =
 CODE_COVERAGE_IGNORE_PATTERN += /usr/include/*
 CODE_COVERAGE_IGNORE_PATTERN += /usr/include/*/*
-CODE_COVERAGE_IGNORE_PATTERN += $(PATSHOME)/ccomp/runtime/*
-CODE_COVERAGE_IGNORE_PATTERN += $(PATSHOME)/prelude/CATS/*
 
 clean-local: code-coverage-clean tests-clean
 distclean-local: code-coverage-dist-clean

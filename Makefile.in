@@ -641,8 +641,7 @@ CLEANFILES = tests/test-UINTTYPE_RADIX_SORT \
 	tests/test-INTTYPE_RADIX_SORT tests/test-stability
 DISTCLEANFILES = Makefile GNUmakefile
 BUILT_SOURCES = 
-AM_CPPFLAGS = -I$(builddir) -I$(srcdir) -I$(PATSHOME) \
-	-I$(PATSHOME)/ccomp/runtime/
+AM_CPPFLAGS = -I$(builddir) -I$(srcdir)
 AM_CFLAGS = 
 AM_LDFLAGS = 
 LDADD = $(CODE_COVERAGE_LIBS)
@@ -651,8 +650,7 @@ nobase_nodist_pkginclude_HEADERS =
 
 #--------------------------------------------------------------------------
 nodist_pkgconfig_DATA = integer-radix-sort.pc
-CODE_COVERAGE_IGNORE_PATTERN = /usr/include/* /usr/include/*/* \
-	$(PATSHOME)/ccomp/runtime/* $(PATSHOME)/prelude/CATS/*
+CODE_COVERAGE_IGNORE_PATTERN = /usr/include/* /usr/include/*/*
 
 #---------------------------------------------------------------------
 #
