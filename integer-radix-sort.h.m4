@@ -15,6 +15,7 @@
   along with this program. If not, see
   <https://www.gnu.org/licenses/>.
 */
+include(`common-macros.m4')dnl
 
 #ifndef INTEGER_RADIX_SORT_H_HEADER_GUARD__
 #define INTEGER_RADIX_SORT_H_HEADER_GUARD__
@@ -300,4 +301,13 @@
                             sizeof (KEY_T),                     \
                             INTEGER_RADIX_SORT__DEREFERENCE)
 
+m4_foreachq(`TYPE',`UINTTYPES,INTTYPES',
+`void TYPE`'_keyed_radix_sort (void *base, size_t nmemb, size_t size,
+                             m4_map_typename(TYPE) (*get_key) (void *));
+')dnl
+
 #endif /* INTEGER_RADIX_SORT_H_HEADER_GUARD__ */
+
+/* local variables: */
+/* mode: c */
+/* end: */

@@ -9,3 +9,5 @@ version=@VERSION@
 Name: ${package}
 Description: Integer-keyed radix sort for C
 Version: ${version}
+Cflags: -I${includedir}
+Libs: -L${libdir} -linteger-radix-sort

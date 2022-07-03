@@ -33,7 +33,7 @@
 #
 
 # aminclude_static.am generated automatically by Autoconf
-# from AX_AM_MACROS_STATIC on Sat Jul  2 09:28:17 CDT 2022
+# from AX_AM_MACROS_STATIC on Sun Jul  3 17:59:42 CDT 2022
 
 
 
@@ -137,15 +137,15 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/ax_ac_append_to_file.m4 \
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(top_srcdir)/configure \
-	$(am__configure_deps) $(include_HEADERS) $(am__DIST_COMMON)
+	$(am__configure_deps) $(am__DIST_COMMON)
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(install_sh) -d
-CONFIG_CLEAN_FILES = integer-radix-sort.pc
+CONFIG_CLEAN_FILES = common-macros.m4 integer-radix-sort.pc
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libdir)" \
-	"$(DESTDIR)$(pkgconfigdir)" "$(DESTDIR)$(includedir)" \
-	"$(DESTDIR)$(pkgincludedir)"
+	"$(DESTDIR)$(pkgconfigdir)" "$(DESTDIR)$(pkgincludedir)" \
+	"$(DESTDIR)$(includedir)"
 PROGRAMS = $(bin_PROGRAMS)
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
 am__vpath_adj = case $$p in \
@@ -175,6 +175,26 @@ am__uninstall_files_from_dir = { \
          $(am__cd) "$$dir" && rm -f $$files; }; \
   }
 LTLIBRARIES = $(lib_LTLIBRARIES)
+libinteger_radix_sort_la_LIBADD =
+nodist_libinteger_radix_sort_la_OBJECTS = uchar_keyed_radix_sort.lo \
+	usint_keyed_radix_sort.lo uint_keyed_radix_sort.lo \
+	ulint_keyed_radix_sort.lo ullint_keyed_radix_sort.lo \
+	uint8_keyed_radix_sort.lo uint16_keyed_radix_sort.lo \
+	uint32_keyed_radix_sort.lo uint64_keyed_radix_sort.lo \
+	uintmax_keyed_radix_sort.lo uintptr_keyed_radix_sort.lo \
+	size_keyed_radix_sort.lo schar_keyed_radix_sort.lo \
+	sint_keyed_radix_sort.lo int_keyed_radix_sort.lo \
+	lint_keyed_radix_sort.lo llint_keyed_radix_sort.lo \
+	int8_keyed_radix_sort.lo int16_keyed_radix_sort.lo \
+	int32_keyed_radix_sort.lo int64_keyed_radix_sort.lo \
+	intmax_keyed_radix_sort.lo intptr_keyed_radix_sort.lo \
+	ssize_keyed_radix_sort.lo
+libinteger_radix_sort_la_OBJECTS =  \
+	$(nodist_libinteger_radix_sort_la_OBJECTS)
+AM_V_lt = $(am__v_lt_@AM_V@)
+am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
+am__v_lt_0 = --silent
+am__v_lt_1 = 
 am__dirstamp = $(am__leading_dot)dirstamp
 am_tests_test_INTTYPE_RADIX_SORT_OBJECTS =  \
 	tests/test-INTTYPE_RADIX_SORT.$(OBJEXT)
@@ -183,10 +203,6 @@ tests_test_INTTYPE_RADIX_SORT_OBJECTS =  \
 tests_test_INTTYPE_RADIX_SORT_LDADD = $(LDADD)
 am__DEPENDENCIES_1 =
 tests_test_INTTYPE_RADIX_SORT_DEPENDENCIES = $(am__DEPENDENCIES_1)
-AM_V_lt = $(am__v_lt_@AM_V@)
-am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
-am__v_lt_0 = --silent
-am__v_lt_1 = 
 am_tests_test_UINTTYPE_RADIX_SORT_OBJECTS =  \
 	tests/test-UINTTYPE_RADIX_SORT.$(OBJEXT)
 tests_test_UINTTYPE_RADIX_SORT_OBJECTS =  \
@@ -212,7 +228,31 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/build-aux/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = tests/$(DEPDIR)/test-INTTYPE_RADIX_SORT.Po \
+am__depfiles_remade = ./$(DEPDIR)/int16_keyed_radix_sort.Plo \
+	./$(DEPDIR)/int32_keyed_radix_sort.Plo \
+	./$(DEPDIR)/int64_keyed_radix_sort.Plo \
+	./$(DEPDIR)/int8_keyed_radix_sort.Plo \
+	./$(DEPDIR)/int_keyed_radix_sort.Plo \
+	./$(DEPDIR)/intmax_keyed_radix_sort.Plo \
+	./$(DEPDIR)/intptr_keyed_radix_sort.Plo \
+	./$(DEPDIR)/lint_keyed_radix_sort.Plo \
+	./$(DEPDIR)/llint_keyed_radix_sort.Plo \
+	./$(DEPDIR)/schar_keyed_radix_sort.Plo \
+	./$(DEPDIR)/sint_keyed_radix_sort.Plo \
+	./$(DEPDIR)/size_keyed_radix_sort.Plo \
+	./$(DEPDIR)/ssize_keyed_radix_sort.Plo \
+	./$(DEPDIR)/uchar_keyed_radix_sort.Plo \
+	./$(DEPDIR)/uint16_keyed_radix_sort.Plo \
+	./$(DEPDIR)/uint32_keyed_radix_sort.Plo \
+	./$(DEPDIR)/uint64_keyed_radix_sort.Plo \
+	./$(DEPDIR)/uint8_keyed_radix_sort.Plo \
+	./$(DEPDIR)/uint_keyed_radix_sort.Plo \
+	./$(DEPDIR)/uintmax_keyed_radix_sort.Plo \
+	./$(DEPDIR)/uintptr_keyed_radix_sort.Plo \
+	./$(DEPDIR)/ulint_keyed_radix_sort.Plo \
+	./$(DEPDIR)/ullint_keyed_radix_sort.Plo \
+	./$(DEPDIR)/usint_keyed_radix_sort.Plo \
+	tests/$(DEPDIR)/test-INTTYPE_RADIX_SORT.Po \
 	tests/$(DEPDIR)/test-UINTTYPE_RADIX_SORT.Po \
 	tests/$(DEPDIR)/test-stability.Po
 am__mv = mv -f
@@ -234,7 +274,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(tests_test_INTTYPE_RADIX_SORT_SOURCES) \
+SOURCES = $(nodist_libinteger_radix_sort_la_SOURCES) \
+	$(tests_test_INTTYPE_RADIX_SORT_SOURCES) \
 	$(tests_test_UINTTYPE_RADIX_SORT_SOURCES) \
 	$(tests_test_stability_SOURCES)
 DIST_SOURCES = $(tests_test_INTTYPE_RADIX_SORT_SOURCES) \
@@ -246,7 +287,8 @@ am__can_run_installinfo = \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
 DATA = $(nodist_pkgconfig_DATA)
-HEADERS = $(include_HEADERS) $(nobase_nodist_pkginclude_HEADERS)
+HEADERS = $(nobase_nodist_pkginclude_HEADERS) \
+	$(nodist_include_HEADERS)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
 # and print each of them once, without duplicates.  Input order is
@@ -442,7 +484,7 @@ TEST_LOGS = $(am__test_logs2:.test.log=.log)
 TEST_LOG_DRIVER = $(SHELL) $(top_srcdir)/build-aux/test-driver
 TEST_LOG_COMPILE = $(TEST_LOG_COMPILER) $(AM_TEST_LOG_FLAGS) \
 	$(TEST_LOG_FLAGS)
-am__DIST_COMMON = $(srcdir)/Makefile.in \
+am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/common-macros.m4.in \
 	$(srcdir)/integer-radix-sort.pc.in \
 	$(top_srcdir)/aminclude_static.am \
 	$(top_srcdir)/build-aux/compile \
@@ -532,6 +574,7 @@ LIPO = @LIPO@
 LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
 LT_SYS_LIBRARY_PATH = @LT_SYS_LIBRARY_PATH@
+M4 = @M4@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
 MANIFEST_TOOL = @MANIFEST_TOOL@
@@ -635,17 +678,20 @@ AUTOMAKE_OPTIONS = foreign subdir-objects
 # sanitizes the test-name: replaces with underscores: dashes and dots
 @CODE_COVERAGE_ENABLED_TRUE@code_coverage_sanitize = $(subst -,_,$(subst .,_,$(1)))
 @CODE_COVERAGE_ENABLED_TRUE@AM_DISTCHECK_CONFIGURE_FLAGS := $(AM_DISTCHECK_CONFIGURE_FLAGS) --disable-code-coverage
-EXTRA_DIST = $(srcdir)/silent-rules.mk COPYING INSTALL README AUTHORS
+EXTRA_DIST = $(srcdir)/silent-rules.mk COPYING INSTALL README AUTHORS \
+	uinttype_keyed_radix_sort.c.m4 inttype_keyed_radix_sort.c.m4 \
+	integer-radix-sort.h.m4
 MOSTLYCLEANFILES = 
-CLEANFILES = tests/test-UINTTYPE_RADIX_SORT \
+CLEANFILES = integer-radix-sort.h tests/test-UINTTYPE_RADIX_SORT \
 	tests/test-INTTYPE_RADIX_SORT tests/test-stability
 DISTCLEANFILES = Makefile GNUmakefile
 BUILT_SOURCES = 
 AM_CPPFLAGS = -I$(builddir) -I$(srcdir)
 AM_CFLAGS = 
 AM_LDFLAGS = 
+AM_M4FLAGS = -DUINTTYPES=$(UINTTYPES) -DINTTYPES=$(INTTYPES)
 LDADD = $(CODE_COVERAGE_LIBS)
-lib_LTLIBRARIES = 
+lib_LTLIBRARIES = libinteger-radix-sort.la
 nobase_nodist_pkginclude_HEADERS = 
 
 #--------------------------------------------------------------------------
@@ -664,12 +710,31 @@ space := $(empty) $(empty)
 escape = $(subst $$,\$$,$(subst ^,\^,$(subst ],\],$(subst [,\[,$(subst .,\.,$(subst \,\\,$(1)))))))
 
 #--------------------------------------------------------------------------
-include_HEADERS = integer-radix-sort.h
+TOTAL_M4FLAGS = $(AM_M4FLAGS) $(M4FLAGS) $(XM4FLAGS)
+
+#--------------------------------------------------------------------------
+UINTTYPES = uchar,usint,uint,ulint,ullint,uint8,uint16,uint32,uint64,uintmax,uintptr,size
+INTTYPES = schar,sint,int,lint,llint,int8,int16,int32,int64,intmax,intptr,ssize
+nodist_include_HEADERS = integer-radix-sort.h
+nodist_libinteger_radix_sort_la_SOURCES = uchar_keyed_radix_sort.c \
+	usint_keyed_radix_sort.c uint_keyed_radix_sort.c \
+	ulint_keyed_radix_sort.c ullint_keyed_radix_sort.c \
+	uint8_keyed_radix_sort.c uint16_keyed_radix_sort.c \
+	uint32_keyed_radix_sort.c uint64_keyed_radix_sort.c \
+	uintmax_keyed_radix_sort.c uintptr_keyed_radix_sort.c \
+	size_keyed_radix_sort.c schar_keyed_radix_sort.c \
+	sint_keyed_radix_sort.c int_keyed_radix_sort.c \
+	lint_keyed_radix_sort.c llint_keyed_radix_sort.c \
+	int8_keyed_radix_sort.c int16_keyed_radix_sort.c \
+	int32_keyed_radix_sort.c int64_keyed_radix_sort.c \
+	intmax_keyed_radix_sort.c intptr_keyed_radix_sort.c \
+	ssize_keyed_radix_sort.c
 tests_test_UINTTYPE_RADIX_SORT_SOURCES =  \
-	tests/test-UINTTYPE_RADIX_SORT.c
+	tests/test-UINTTYPE_RADIX_SORT.c integer-radix-sort.h
 tests_test_INTTYPE_RADIX_SORT_SOURCES =  \
-	tests/test-INTTYPE_RADIX_SORT.c
-tests_test_stability_SOURCES = tests/test-stability.c
+	tests/test-INTTYPE_RADIX_SORT.c integer-radix-sort.h
+tests_test_stability_SOURCES = tests/test-stability.c \
+	integer-radix-sort.h
 all: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -709,6 +774,8 @@ $(top_srcdir)/configure: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
 $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	$(am__cd) $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
 $(am__aclocal_m4_deps):
+common-macros.m4: $(top_builddir)/config.status $(srcdir)/common-macros.m4.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
 integer-radix-sort.pc: $(top_builddir)/config.status $(srcdir)/integer-radix-sort.pc.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 install-binPROGRAMS: $(bin_PROGRAMS)
@@ -795,6 +862,9 @@ clean-libLTLIBRARIES:
 	  echo rm -f $${locs}; \
 	  rm -f $${locs}; \
 	}
+
+libinteger-radix-sort.la: $(libinteger_radix_sort_la_OBJECTS) $(libinteger_radix_sort_la_DEPENDENCIES) $(EXTRA_libinteger_radix_sort_la_DEPENDENCIES) 
+	$(AM_V_CCLD)$(LINK) -rpath $(libdir) $(libinteger_radix_sort_la_OBJECTS) $(libinteger_radix_sort_la_LIBADD) $(LIBS)
 tests/$(am__dirstamp):
 	@$(MKDIR_P) tests
 	@: > tests/$(am__dirstamp)
@@ -827,6 +897,30 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/int16_keyed_radix_sort.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/int32_keyed_radix_sort.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/int64_keyed_radix_sort.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/int8_keyed_radix_sort.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/int_keyed_radix_sort.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/intmax_keyed_radix_sort.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/intptr_keyed_radix_sort.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lint_keyed_radix_sort.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/llint_keyed_radix_sort.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/schar_keyed_radix_sort.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sint_keyed_radix_sort.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/size_keyed_radix_sort.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ssize_keyed_radix_sort.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uchar_keyed_radix_sort.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uint16_keyed_radix_sort.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uint32_keyed_radix_sort.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uint64_keyed_radix_sort.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uint8_keyed_radix_sort.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uint_keyed_radix_sort.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uintmax_keyed_radix_sort.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uintptr_keyed_radix_sort.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ulint_keyed_radix_sort.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ullint_keyed_radix_sort.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/usint_keyed_radix_sort.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-INTTYPE_RADIX_SORT.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-UINTTYPE_RADIX_SORT.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-stability.Po@am__quote@ # am--include-marker
@@ -891,27 +985,6 @@ uninstall-nodist_pkgconfigDATA:
 	@list='$(nodist_pkgconfig_DATA)'; test -n "$(pkgconfigdir)" || list=; \
 	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
 	dir='$(DESTDIR)$(pkgconfigdir)'; $(am__uninstall_files_from_dir)
-install-includeHEADERS: $(include_HEADERS)
-	@$(NORMAL_INSTALL)
-	@list='$(include_HEADERS)'; test -n "$(includedir)" || list=; \
-	if test -n "$$list"; then \
-	  echo " $(MKDIR_P) '$(DESTDIR)$(includedir)'"; \
-	  $(MKDIR_P) "$(DESTDIR)$(includedir)" || exit 1; \
-	fi; \
-	for p in $$list; do \
-	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
-	  echo "$$d$$p"; \
-	done | $(am__base_list) | \
-	while read files; do \
-	  echo " $(INSTALL_HEADER) $$files '$(DESTDIR)$(includedir)'"; \
-	  $(INSTALL_HEADER) $$files "$(DESTDIR)$(includedir)" || exit $$?; \
-	done
-
-uninstall-includeHEADERS:
-	@$(NORMAL_UNINSTALL)
-	@list='$(include_HEADERS)'; test -n "$(includedir)" || list=; \
-	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
-	dir='$(DESTDIR)$(includedir)'; $(am__uninstall_files_from_dir)
 install-nobase_nodist_pkgincludeHEADERS: $(nobase_nodist_pkginclude_HEADERS)
 	@$(NORMAL_INSTALL)
 	@list='$(nobase_nodist_pkginclude_HEADERS)'; test -n "$(pkgincludedir)" || list=; \
@@ -936,6 +1009,27 @@ uninstall-nobase_nodist_pkgincludeHEADERS:
 	@list='$(nobase_nodist_pkginclude_HEADERS)'; test -n "$(pkgincludedir)" || list=; \
 	$(am__nobase_strip_setup); files=`$(am__nobase_strip)`; \
 	dir='$(DESTDIR)$(pkgincludedir)'; $(am__uninstall_files_from_dir)
+install-nodist_includeHEADERS: $(nodist_include_HEADERS)
+	@$(NORMAL_INSTALL)
+	@list='$(nodist_include_HEADERS)'; test -n "$(includedir)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(includedir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(includedir)" || exit 1; \
+	fi; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_HEADER) $$files '$(DESTDIR)$(includedir)'"; \
+	  $(INSTALL_HEADER) $$files "$(DESTDIR)$(includedir)" || exit $$?; \
+	done
+
+uninstall-nodist_includeHEADERS:
+	@$(NORMAL_UNINSTALL)
+	@list='$(nodist_include_HEADERS)'; test -n "$(includedir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	dir='$(DESTDIR)$(includedir)'; $(am__uninstall_files_from_dir)
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
@@ -1354,7 +1448,7 @@ install-EXTRAPROGRAMS: install-libLTLIBRARIES
 install-binPROGRAMS: install-libLTLIBRARIES
 
 installdirs:
-	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libdir)" "$(DESTDIR)$(pkgconfigdir)" "$(DESTDIR)$(includedir)" "$(DESTDIR)$(pkgincludedir)"; do \
+	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libdir)" "$(DESTDIR)$(pkgconfigdir)" "$(DESTDIR)$(pkgincludedir)" "$(DESTDIR)$(includedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: $(BUILT_SOURCES)
@@ -1405,7 +1499,31 @@ clean-am: clean-binPROGRAMS clean-generic clean-libLTLIBRARIES \
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-		-rm -f tests/$(DEPDIR)/test-INTTYPE_RADIX_SORT.Po
+		-rm -f ./$(DEPDIR)/int16_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/int32_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/int64_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/int8_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/int_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/intmax_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/intptr_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/lint_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/llint_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/schar_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/sint_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/size_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/ssize_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/uchar_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/uint16_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/uint32_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/uint64_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/uint8_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/uint_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/uintmax_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/uintptr_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/ulint_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/ullint_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/usint_keyed_radix_sort.Plo
+	-rm -f tests/$(DEPDIR)/test-INTTYPE_RADIX_SORT.Po
 	-rm -f tests/$(DEPDIR)/test-UINTTYPE_RADIX_SORT.Po
 	-rm -f tests/$(DEPDIR)/test-stability.Po
 	-rm -f GNUmakefile
@@ -1424,9 +1542,8 @@ info: info-am
 
 info-am:
 
-install-data-am: install-includeHEADERS \
-	install-nobase_nodist_pkgincludeHEADERS \
-	install-nodist_pkgconfigDATA
+install-data-am: install-nobase_nodist_pkgincludeHEADERS \
+	install-nodist_includeHEADERS install-nodist_pkgconfigDATA
 
 install-dvi: install-dvi-am
 
@@ -1457,7 +1574,31 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-		-rm -f tests/$(DEPDIR)/test-INTTYPE_RADIX_SORT.Po
+		-rm -f ./$(DEPDIR)/int16_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/int32_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/int64_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/int8_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/int_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/intmax_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/intptr_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/lint_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/llint_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/schar_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/sint_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/size_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/ssize_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/uchar_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/uint16_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/uint32_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/uint64_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/uint8_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/uint_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/uintmax_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/uintptr_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/ulint_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/ullint_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/usint_keyed_radix_sort.Plo
+	-rm -f tests/$(DEPDIR)/test-INTTYPE_RADIX_SORT.Po
 	-rm -f tests/$(DEPDIR)/test-UINTTYPE_RADIX_SORT.Po
 	-rm -f tests/$(DEPDIR)/test-stability.Po
 	-rm -f GNUmakefile
@@ -1476,10 +1617,9 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-binPROGRAMS uninstall-includeHEADERS \
-	uninstall-libLTLIBRARIES \
+uninstall-am: uninstall-binPROGRAMS uninstall-libLTLIBRARIES \
 	uninstall-nobase_nodist_pkgincludeHEADERS \
-	uninstall-nodist_pkgconfigDATA
+	uninstall-nodist_includeHEADERS uninstall-nodist_pkgconfigDATA
 
 .MAKE: all check check-am install install-am install-exec \
 	install-strip
@@ -1495,19 +1635,18 @@ uninstall-am: uninstall-binPROGRAMS uninstall-includeHEADERS \
 	dvi-am html html-am info info-am install install-am \
 	install-binPROGRAMS install-data install-data-am install-dvi \
 	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-includeHEADERS install-info \
-	install-info-am install-libLTLIBRARIES install-man \
+	install-html-am install-info install-info-am \
+	install-libLTLIBRARIES install-man \
 	install-nobase_nodist_pkgincludeHEADERS \
-	install-nodist_pkgconfigDATA install-pdf install-pdf-am \
-	install-ps install-ps-am install-strip installcheck \
-	installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
-	recheck tags tags-am uninstall uninstall-am \
-	uninstall-binPROGRAMS uninstall-includeHEADERS \
-	uninstall-libLTLIBRARIES \
+	install-nodist_includeHEADERS install-nodist_pkgconfigDATA \
+	install-pdf install-pdf-am install-ps install-ps-am \
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
+	pdf pdf-am ps ps-am recheck tags tags-am uninstall \
+	uninstall-am uninstall-binPROGRAMS uninstall-libLTLIBRARIES \
 	uninstall-nobase_nodist_pkgincludeHEADERS \
-	uninstall-nodist_pkgconfigDATA
+	uninstall-nodist_includeHEADERS uninstall-nodist_pkgconfigDATA
 
 .PRECIOUS: GNUmakefile
 
@@ -1616,8 +1755,55 @@ code-coverage-capture-hook:
 
 @GNU@ include $(top_srcdir)/silent-rules.mk
 
-clean-local: code-coverage-clean tests-clean
+clean-local: code-coverage-clean sources-clean tests-clean
 distclean-local: code-coverage-dist-clean
+
+%.h: %.h.m4 common-macros.m4
+	@$(MKDIR_P) $(@D)
+	$(call v,M4)$(M4) $(TOTAL_M4FLAGS) $(<) > $(@)
+
+@GNU@ define uinttype_rule
+@GNU@ $1_keyed_radix_sort.c: uinttype_keyed_radix_sort.c.m4 common-macros.m4 GNUmakefile;
+@GNU@ 	@$(MKDIR_P) $$(@D)
+@GNU@	$$(call v,M4)$(M4) $(TOTAL_M4FLAGS) -DTYPE=$1 $$(<) > $$(@)
+@GNU@ endef
+
+@GNU@ define inttype_rule
+@GNU@ $1_keyed_radix_sort.c: inttype_keyed_radix_sort.c.m4 common-macros.m4 GNUmakefile;
+@GNU@ 	@$(MKDIR_P) $$(@D)
+@GNU@	$$(call v,M4)$(M4) $(TOTAL_M4FLAGS) -DTYPE=$1 $$(<) > $$(@)
+@GNU@ endef
+
+$(call uinttype_rule,uchar)
+$(call uinttype_rule,usint)
+$(call uinttype_rule,uint)
+$(call uinttype_rule,ulint)
+$(call uinttype_rule,ullint)
+$(call uinttype_rule,uint8)
+$(call uinttype_rule,uint16)
+$(call uinttype_rule,uint32)
+$(call uinttype_rule,uint64)
+$(call uinttype_rule,uintmax)
+$(call uinttype_rule,uintptr)
+$(call uinttype_rule,size)
+
+$(call inttype_rule,schar)
+$(call inttype_rule,sint)
+$(call inttype_rule,int)
+$(call inttype_rule,lint)
+$(call inttype_rule,llint)
+$(call inttype_rule,int8)
+$(call inttype_rule,int16)
+$(call inttype_rule,int32)
+$(call inttype_rule,int64)
+$(call inttype_rule,intmax)
+$(call inttype_rule,intptr)
+$(call inttype_rule,ssize)
+
+sources-clean:
+	-rm -f *_keyed_radix_sort.c
+
+integer-radix-sort.h: GNUmakefile
 
 tests-clean:
 	-rm -f tests/*.$(OBJEXT)

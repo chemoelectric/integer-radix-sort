@@ -21,7 +21,7 @@
 AC_PREREQ([2.71])
 AC_INIT([integer-radix-sort],[1.0.0],[],[integer-radix-sort],[])
 
-AC_CONFIG_SRCDIR([integer-radix-sort.h])
+AC_CONFIG_SRCDIR([integer-radix-sort.h.m4])
 
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR([build-aux])
@@ -53,6 +53,7 @@ AC_PROG_AWK
 AC_PROG_SED
 AC_PROG_FGREP
 AC_PROG_EGREP
+AC_CHECK_PROGS([M4],[m4])
 
 # Enable optional code coverage analysis.
 AX_CODE_COVERAGE
@@ -90,6 +91,7 @@ AC_SUBST([GNU],[])
 StM_REQUIRE_GNU_MAKE_IN_PATH
 StM_CONFIG_MAKEFILES
 
+AC_CONFIG_FILES([common-macros.m4])
 AC_CONFIG_FILES([integer-radix-sort.pc])
 
 AC_OUTPUT
