@@ -302,8 +302,16 @@ include(`common-macros.m4')dnl
                             INTEGER_RADIX_SORT__DEREFERENCE)
 
 m4_foreachq(`TYPE',`UINTTYPES,INTTYPES',
-`void TYPE`'_keyed_radix_sort (void *base, size_t nmemb, size_t size,
+`m4_if(TYPE,`int128',`#if defined __SIZEOF_INT128__
+')dnl
+m4_if(TYPE,`uint128',`#if defined __SIZEOF_INT128__
+')dnl
+void TYPE`'_keyed_radix_sort (void *base, size_t nmemb, size_t size,
                              m4_map_typename(TYPE) (*get_key) (void *));
+m4_if(TYPE,`int128',`#endif
+')dnl
+m4_if(TYPE,`uint128',`#endif
+')dnl
 ')dnl
 
 #endif /* INTEGER_RADIX_SORT_H_HEADER_GUARD__ */

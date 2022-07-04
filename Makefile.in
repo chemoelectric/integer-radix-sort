@@ -181,12 +181,13 @@ nodist_libinteger_radix_sort_la_OBJECTS = uchar_keyed_radix_sort.lo \
 	ulint_keyed_radix_sort.lo ullint_keyed_radix_sort.lo \
 	uint8_keyed_radix_sort.lo uint16_keyed_radix_sort.lo \
 	uint32_keyed_radix_sort.lo uint64_keyed_radix_sort.lo \
-	uintmax_keyed_radix_sort.lo uintptr_keyed_radix_sort.lo \
-	size_keyed_radix_sort.lo schar_keyed_radix_sort.lo \
-	sint_keyed_radix_sort.lo int_keyed_radix_sort.lo \
-	lint_keyed_radix_sort.lo llint_keyed_radix_sort.lo \
-	int8_keyed_radix_sort.lo int16_keyed_radix_sort.lo \
-	int32_keyed_radix_sort.lo int64_keyed_radix_sort.lo \
+	uint128_keyed_radix_sort.lo uintmax_keyed_radix_sort.lo \
+	uintptr_keyed_radix_sort.lo size_keyed_radix_sort.lo \
+	schar_keyed_radix_sort.lo sint_keyed_radix_sort.lo \
+	int_keyed_radix_sort.lo lint_keyed_radix_sort.lo \
+	llint_keyed_radix_sort.lo int8_keyed_radix_sort.lo \
+	int16_keyed_radix_sort.lo int32_keyed_radix_sort.lo \
+	int64_keyed_radix_sort.lo int128_keyed_radix_sort.lo \
 	intmax_keyed_radix_sort.lo intptr_keyed_radix_sort.lo \
 	ssize_keyed_radix_sort.lo
 libinteger_radix_sort_la_OBJECTS =  \
@@ -228,7 +229,8 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/build-aux/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/int16_keyed_radix_sort.Plo \
+am__depfiles_remade = ./$(DEPDIR)/int128_keyed_radix_sort.Plo \
+	./$(DEPDIR)/int16_keyed_radix_sort.Plo \
 	./$(DEPDIR)/int32_keyed_radix_sort.Plo \
 	./$(DEPDIR)/int64_keyed_radix_sort.Plo \
 	./$(DEPDIR)/int8_keyed_radix_sort.Plo \
@@ -242,6 +244,7 @@ am__depfiles_remade = ./$(DEPDIR)/int16_keyed_radix_sort.Plo \
 	./$(DEPDIR)/size_keyed_radix_sort.Plo \
 	./$(DEPDIR)/ssize_keyed_radix_sort.Plo \
 	./$(DEPDIR)/uchar_keyed_radix_sort.Plo \
+	./$(DEPDIR)/uint128_keyed_radix_sort.Plo \
 	./$(DEPDIR)/uint16_keyed_radix_sort.Plo \
 	./$(DEPDIR)/uint32_keyed_radix_sort.Plo \
 	./$(DEPDIR)/uint64_keyed_radix_sort.Plo \
@@ -713,20 +716,21 @@ escape = $(subst $$,\$$,$(subst ^,\^,$(subst ],\],$(subst [,\[,$(subst .,\.,$(su
 TOTAL_M4FLAGS = $(AM_M4FLAGS) $(M4FLAGS) $(XM4FLAGS)
 
 #--------------------------------------------------------------------------
-UINTTYPES = uchar,usint,uint,ulint,ullint,uint8,uint16,uint32,uint64,uintmax,uintptr,size
-INTTYPES = schar,sint,int,lint,llint,int8,int16,int32,int64,intmax,intptr,ssize
+UINTTYPES = uchar,usint,uint,ulint,ullint,uint8,uint16,uint32,uint64,uint128,uintmax,uintptr,size
+INTTYPES = schar,sint,int,lint,llint,int8,int16,int32,int64,int128,intmax,intptr,ssize
 nodist_include_HEADERS = integer-radix-sort.h
 nodist_libinteger_radix_sort_la_SOURCES = uchar_keyed_radix_sort.c \
 	usint_keyed_radix_sort.c uint_keyed_radix_sort.c \
 	ulint_keyed_radix_sort.c ullint_keyed_radix_sort.c \
 	uint8_keyed_radix_sort.c uint16_keyed_radix_sort.c \
 	uint32_keyed_radix_sort.c uint64_keyed_radix_sort.c \
-	uintmax_keyed_radix_sort.c uintptr_keyed_radix_sort.c \
-	size_keyed_radix_sort.c schar_keyed_radix_sort.c \
-	sint_keyed_radix_sort.c int_keyed_radix_sort.c \
-	lint_keyed_radix_sort.c llint_keyed_radix_sort.c \
-	int8_keyed_radix_sort.c int16_keyed_radix_sort.c \
-	int32_keyed_radix_sort.c int64_keyed_radix_sort.c \
+	uint128_keyed_radix_sort.c uintmax_keyed_radix_sort.c \
+	uintptr_keyed_radix_sort.c size_keyed_radix_sort.c \
+	schar_keyed_radix_sort.c sint_keyed_radix_sort.c \
+	int_keyed_radix_sort.c lint_keyed_radix_sort.c \
+	llint_keyed_radix_sort.c int8_keyed_radix_sort.c \
+	int16_keyed_radix_sort.c int32_keyed_radix_sort.c \
+	int64_keyed_radix_sort.c int128_keyed_radix_sort.c \
 	intmax_keyed_radix_sort.c intptr_keyed_radix_sort.c \
 	ssize_keyed_radix_sort.c
 tests_test_UINTTYPE_RADIX_SORT_SOURCES =  \
@@ -897,6 +901,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/int128_keyed_radix_sort.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/int16_keyed_radix_sort.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/int32_keyed_radix_sort.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/int64_keyed_radix_sort.Plo@am__quote@ # am--include-marker
@@ -911,6 +916,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/size_keyed_radix_sort.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ssize_keyed_radix_sort.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uchar_keyed_radix_sort.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uint128_keyed_radix_sort.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uint16_keyed_radix_sort.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uint32_keyed_radix_sort.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uint64_keyed_radix_sort.Plo@am__quote@ # am--include-marker
@@ -1499,7 +1505,8 @@ clean-am: clean-binPROGRAMS clean-generic clean-libLTLIBRARIES \
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-		-rm -f ./$(DEPDIR)/int16_keyed_radix_sort.Plo
+		-rm -f ./$(DEPDIR)/int128_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/int16_keyed_radix_sort.Plo
 	-rm -f ./$(DEPDIR)/int32_keyed_radix_sort.Plo
 	-rm -f ./$(DEPDIR)/int64_keyed_radix_sort.Plo
 	-rm -f ./$(DEPDIR)/int8_keyed_radix_sort.Plo
@@ -1513,6 +1520,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/size_keyed_radix_sort.Plo
 	-rm -f ./$(DEPDIR)/ssize_keyed_radix_sort.Plo
 	-rm -f ./$(DEPDIR)/uchar_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/uint128_keyed_radix_sort.Plo
 	-rm -f ./$(DEPDIR)/uint16_keyed_radix_sort.Plo
 	-rm -f ./$(DEPDIR)/uint32_keyed_radix_sort.Plo
 	-rm -f ./$(DEPDIR)/uint64_keyed_radix_sort.Plo
@@ -1574,7 +1582,8 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-		-rm -f ./$(DEPDIR)/int16_keyed_radix_sort.Plo
+		-rm -f ./$(DEPDIR)/int128_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/int16_keyed_radix_sort.Plo
 	-rm -f ./$(DEPDIR)/int32_keyed_radix_sort.Plo
 	-rm -f ./$(DEPDIR)/int64_keyed_radix_sort.Plo
 	-rm -f ./$(DEPDIR)/int8_keyed_radix_sort.Plo
@@ -1588,6 +1597,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/size_keyed_radix_sort.Plo
 	-rm -f ./$(DEPDIR)/ssize_keyed_radix_sort.Plo
 	-rm -f ./$(DEPDIR)/uchar_keyed_radix_sort.Plo
+	-rm -f ./$(DEPDIR)/uint128_keyed_radix_sort.Plo
 	-rm -f ./$(DEPDIR)/uint16_keyed_radix_sort.Plo
 	-rm -f ./$(DEPDIR)/uint32_keyed_radix_sort.Plo
 	-rm -f ./$(DEPDIR)/uint64_keyed_radix_sort.Plo
@@ -1762,17 +1772,17 @@ distclean-local: code-coverage-dist-clean
 	@$(MKDIR_P) $(@D)
 	$(call v,M4)$(M4) $(TOTAL_M4FLAGS) $(<) > $(@)
 
-@GNU@ define uinttype_rule
-@GNU@ $1_keyed_radix_sort.c: uinttype_keyed_radix_sort.c.m4 common-macros.m4 GNUmakefile;
-@GNU@ 	@$(MKDIR_P) $$(@D)
+@GNU@define uinttype_rule
+@GNU@$1_keyed_radix_sort.c: uinttype_keyed_radix_sort.c.m4 common-macros.m4 GNUmakefile;
+@GNU@	@$(MKDIR_P) $$(@D)
 @GNU@	$$(call v,M4)$(M4) $(TOTAL_M4FLAGS) -DTYPE=$1 $$(<) > $$(@)
-@GNU@ endef
+@GNU@endef
 
-@GNU@ define inttype_rule
-@GNU@ $1_keyed_radix_sort.c: inttype_keyed_radix_sort.c.m4 common-macros.m4 GNUmakefile;
-@GNU@ 	@$(MKDIR_P) $$(@D)
+@GNU@define inttype_rule
+@GNU@$1_keyed_radix_sort.c: inttype_keyed_radix_sort.c.m4 common-macros.m4 GNUmakefile;
+@GNU@	@$(MKDIR_P) $$(@D)
 @GNU@	$$(call v,M4)$(M4) $(TOTAL_M4FLAGS) -DTYPE=$1 $$(<) > $$(@)
-@GNU@ endef
+@GNU@endef
 
 $(call uinttype_rule,uchar)
 $(call uinttype_rule,usint)
@@ -1783,6 +1793,7 @@ $(call uinttype_rule,uint8)
 $(call uinttype_rule,uint16)
 $(call uinttype_rule,uint32)
 $(call uinttype_rule,uint64)
+$(call uinttype_rule,uint128)
 $(call uinttype_rule,uintmax)
 $(call uinttype_rule,uintptr)
 $(call uinttype_rule,size)
@@ -1796,6 +1807,7 @@ $(call inttype_rule,int8)
 $(call inttype_rule,int16)
 $(call inttype_rule,int32)
 $(call inttype_rule,int64)
+$(call inttype_rule,int128)
 $(call inttype_rule,intmax)
 $(call inttype_rule,intptr)
 $(call inttype_rule,ssize)

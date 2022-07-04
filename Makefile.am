@@ -86,17 +86,17 @@ TOTAL_M4FLAGS += $(XM4FLAGS)
 	@$(MKDIR_P) $(@D)
 	$(call v,M4)$(M4) $(TOTAL_M4FLAGS) $(<) > $(@)
 
-@GNU@ define uinttype_rule
-@GNU@ $1_keyed_radix_sort.c: uinttype_keyed_radix_sort.c.m4 common-macros.m4 GNUmakefile;
-@GNU@ 	@$(MKDIR_P) $$(@D)
+@GNU@define uinttype_rule
+@GNU@$1_keyed_radix_sort.c: uinttype_keyed_radix_sort.c.m4 common-macros.m4 GNUmakefile;
+@GNU@	@$(MKDIR_P) $$(@D)
 @GNU@	$$(call v,M4)$(M4) $(TOTAL_M4FLAGS) -DTYPE=$1 $$(<) > $$(@)
-@GNU@ endef
+@GNU@endef
 
-@GNU@ define inttype_rule
-@GNU@ $1_keyed_radix_sort.c: inttype_keyed_radix_sort.c.m4 common-macros.m4 GNUmakefile;
-@GNU@ 	@$(MKDIR_P) $$(@D)
+@GNU@define inttype_rule
+@GNU@$1_keyed_radix_sort.c: inttype_keyed_radix_sort.c.m4 common-macros.m4 GNUmakefile;
+@GNU@	@$(MKDIR_P) $$(@D)
 @GNU@	$$(call v,M4)$(M4) $(TOTAL_M4FLAGS) -DTYPE=$1 $$(<) > $$(@)
-@GNU@ endef
+@GNU@endef
 
 EXTRA_DIST += uinttype_keyed_radix_sort.c.m4
 EXTRA_DIST += inttype_keyed_radix_sort.c.m4
@@ -110,6 +110,7 @@ $(call uinttype_rule,uint8)
 $(call uinttype_rule,uint16)
 $(call uinttype_rule,uint32)
 $(call uinttype_rule,uint64)
+$(call uinttype_rule,uint128)
 $(call uinttype_rule,uintmax)
 $(call uinttype_rule,uintptr)
 $(call uinttype_rule,size)
@@ -123,6 +124,7 @@ $(call inttype_rule,int8)
 $(call inttype_rule,int16)
 $(call inttype_rule,int32)
 $(call inttype_rule,int64)
+$(call inttype_rule,int128)
 $(call inttype_rule,intmax)
 $(call inttype_rule,intptr)
 $(call inttype_rule,ssize)
@@ -132,8 +134,8 @@ sources-clean:
 
 #--------------------------------------------------------------------------
 
-UINTTYPES = uchar,usint,uint,ulint,ullint,uint8,uint16,uint32,uint64,uintmax,uintptr,size
-INTTYPES = schar,sint,int,lint,llint,int8,int16,int32,int64,intmax,intptr,ssize
+UINTTYPES = uchar,usint,uint,ulint,ullint,uint8,uint16,uint32,uint64,uint128,uintmax,uintptr,size
+INTTYPES = schar,sint,int,lint,llint,int8,int16,int32,int64,int128,intmax,intptr,ssize
 
 AM_M4FLAGS += -DUINTTYPES=$(UINTTYPES)
 AM_M4FLAGS += -DINTTYPES=$(INTTYPES)
@@ -157,6 +159,7 @@ nodist_libinteger_radix_sort_la_SOURCES += uint8_keyed_radix_sort.c
 nodist_libinteger_radix_sort_la_SOURCES += uint16_keyed_radix_sort.c
 nodist_libinteger_radix_sort_la_SOURCES += uint32_keyed_radix_sort.c
 nodist_libinteger_radix_sort_la_SOURCES += uint64_keyed_radix_sort.c
+nodist_libinteger_radix_sort_la_SOURCES += uint128_keyed_radix_sort.c
 nodist_libinteger_radix_sort_la_SOURCES += uintmax_keyed_radix_sort.c
 nodist_libinteger_radix_sort_la_SOURCES += uintptr_keyed_radix_sort.c
 nodist_libinteger_radix_sort_la_SOURCES += size_keyed_radix_sort.c
@@ -169,6 +172,7 @@ nodist_libinteger_radix_sort_la_SOURCES += int8_keyed_radix_sort.c
 nodist_libinteger_radix_sort_la_SOURCES += int16_keyed_radix_sort.c
 nodist_libinteger_radix_sort_la_SOURCES += int32_keyed_radix_sort.c
 nodist_libinteger_radix_sort_la_SOURCES += int64_keyed_radix_sort.c
+nodist_libinteger_radix_sort_la_SOURCES += int128_keyed_radix_sort.c
 nodist_libinteger_radix_sort_la_SOURCES += intmax_keyed_radix_sort.c
 nodist_libinteger_radix_sort_la_SOURCES += intptr_keyed_radix_sort.c
 nodist_libinteger_radix_sort_la_SOURCES += ssize_keyed_radix_sort.c

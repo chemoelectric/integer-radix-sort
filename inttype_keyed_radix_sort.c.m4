@@ -22,6 +22,8 @@ include(`common-macros.m4')dnl
 #define GET_KEY__(KEY_T, PTR) \
   ((get_key != NULL) ? (get_key (PTR)) : (*(const KEY_T *)(PTR)))
 
+m4_if(TYPE,`int128',`#if defined __SIZEOF_INT128__
+')dnl
 void
 TYPE`'_keyed_radix_sort (void *base, size_t nmemb, size_t size,
                        m4_map_typename(TYPE) (*get_key) (void *))
@@ -29,6 +31,8 @@ TYPE`'_keyed_radix_sort (void *base, size_t nmemb, size_t size,
   INTTYPE_KEYED_RADIX_SORT (m4_map_typename(TYPE), m4_map_typename(m4_signed_to_unsigned(TYPE)),
                             base, nmemb, size, GET_KEY__);
 }
+m4_if(TYPE,`int128',`#endif
+')dnl
 
 /* local variables: */
 /* mode: c */
