@@ -100,8 +100,8 @@ m4_foreachq(`TYPE',`UINTTYPES',
 static m4_map_typename(TYPE)
 TYPE`'_get_key (const void *p)
 {
-  m4_map_typename(TYPE) maxval = ~((m4_map_typename(TYPE)) 0);
-  return maxval - (* (const m4_map_typename(TYPE) *) p);
+  /* The ones-complement. */
+  return ~(* (const m4_map_typename(TYPE) *) p);
 }
 m4_if(TYPE,`uint128',`#endif
 ')dnl
