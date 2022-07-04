@@ -186,6 +186,7 @@ TESTS += tests/test-stability
 TESTS += tests/test-uinttypes
 TESTS += tests/test-inttypes
 TESTS += tests/test-uinttypes-reverse
+TESTS += tests/test-inttypes-reverse
 
 EXTRA_PROGRAMS += tests/test-UINTTYPE_RADIX_SORT
 CLEANFILES += tests/test-UINTTYPE_RADIX_SORT
@@ -239,6 +240,18 @@ tests_test_uinttypes_reverse_LDADD =
 tests_test_uinttypes_reverse_LDADD += libinteger-radix-sort.la
 EXTRA_DIST += tests/test-uinttypes-reverse.c.m4
 tests/test-uinttypes-reverse.c: tests/test-uinttypes-reverse.c.m4
+	$(call v,M4)$(M4) $(TOTAL_M4FLAGS) $(<) > $(@)
+
+EXTRA_PROGRAMS += tests/test-inttypes-reverse
+CLEANFILES += tests/test-inttypes-reverse
+CLEANFILES += tests/test-inttypes-reverse.c
+tests_test_inttypes_reverse_SOURCES =
+tests_test_inttypes_reverse_SOURCES += tests/test-inttypes-reverse.c
+tests_test_inttypes_reverse_SOURCES += integer-radix-sort.h
+tests_test_inttypes_reverse_LDADD =
+tests_test_inttypes_reverse_LDADD += libinteger-radix-sort.la
+EXTRA_DIST += tests/test-inttypes-reverse.c.m4
+tests/test-inttypes-reverse.c: tests/test-inttypes-reverse.c.m4
 	$(call v,M4)$(M4) $(TOTAL_M4FLAGS) $(<) > $(@)
 
 tests-clean:

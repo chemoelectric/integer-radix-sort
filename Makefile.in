@@ -117,12 +117,14 @@ EXTRA_PROGRAMS = tests/test-UINTTYPE_RADIX_SORT$(EXEEXT) \
 	tests/test-INTTYPE_RADIX_SORT$(EXEEXT) \
 	tests/test-stability$(EXEEXT) tests/test-uinttypes$(EXEEXT) \
 	tests/test-inttypes$(EXEEXT) \
-	tests/test-uinttypes-reverse$(EXEEXT)
+	tests/test-uinttypes-reverse$(EXEEXT) \
+	tests/test-inttypes-reverse$(EXEEXT)
 TESTS = tests/test-UINTTYPE_RADIX_SORT$(EXEEXT) \
 	tests/test-INTTYPE_RADIX_SORT$(EXEEXT) \
 	tests/test-stability$(EXEEXT) tests/test-uinttypes$(EXEEXT) \
 	tests/test-inttypes$(EXEEXT) \
-	tests/test-uinttypes-reverse$(EXEEXT)
+	tests/test-uinttypes-reverse$(EXEEXT) \
+	tests/test-inttypes-reverse$(EXEEXT)
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_ac_append_to_file.m4 \
@@ -217,6 +219,11 @@ tests_test_UINTTYPE_RADIX_SORT_DEPENDENCIES = $(am__DEPENDENCIES_1)
 am_tests_test_inttypes_OBJECTS = tests/test-inttypes.$(OBJEXT)
 tests_test_inttypes_OBJECTS = $(am_tests_test_inttypes_OBJECTS)
 tests_test_inttypes_DEPENDENCIES = libinteger-radix-sort.la
+am_tests_test_inttypes_reverse_OBJECTS =  \
+	tests/test-inttypes-reverse.$(OBJEXT)
+tests_test_inttypes_reverse_OBJECTS =  \
+	$(am_tests_test_inttypes_reverse_OBJECTS)
+tests_test_inttypes_reverse_DEPENDENCIES = libinteger-radix-sort.la
 am_tests_test_stability_OBJECTS = tests/test-stability.$(OBJEXT)
 tests_test_stability_OBJECTS = $(am_tests_test_stability_OBJECTS)
 tests_test_stability_LDADD = $(LDADD)
@@ -272,6 +279,7 @@ am__depfiles_remade = ./$(DEPDIR)/int128_keyed_radix_sort.Plo \
 	./$(DEPDIR)/usint_keyed_radix_sort.Plo \
 	tests/$(DEPDIR)/test-INTTYPE_RADIX_SORT.Po \
 	tests/$(DEPDIR)/test-UINTTYPE_RADIX_SORT.Po \
+	tests/$(DEPDIR)/test-inttypes-reverse.Po \
 	tests/$(DEPDIR)/test-inttypes.Po \
 	tests/$(DEPDIR)/test-stability.Po \
 	tests/$(DEPDIR)/test-uinttypes-reverse.Po \
@@ -298,12 +306,16 @@ am__v_CCLD_1 =
 SOURCES = $(nodist_libinteger_radix_sort_la_SOURCES) \
 	$(tests_test_INTTYPE_RADIX_SORT_SOURCES) \
 	$(tests_test_UINTTYPE_RADIX_SORT_SOURCES) \
-	$(tests_test_inttypes_SOURCES) $(tests_test_stability_SOURCES) \
+	$(tests_test_inttypes_SOURCES) \
+	$(tests_test_inttypes_reverse_SOURCES) \
+	$(tests_test_stability_SOURCES) \
 	$(tests_test_uinttypes_SOURCES) \
 	$(tests_test_uinttypes_reverse_SOURCES)
 DIST_SOURCES = $(tests_test_INTTYPE_RADIX_SORT_SOURCES) \
 	$(tests_test_UINTTYPE_RADIX_SORT_SOURCES) \
-	$(tests_test_inttypes_SOURCES) $(tests_test_stability_SOURCES) \
+	$(tests_test_inttypes_SOURCES) \
+	$(tests_test_inttypes_reverse_SOURCES) \
+	$(tests_test_stability_SOURCES) \
 	$(tests_test_uinttypes_SOURCES) \
 	$(tests_test_uinttypes_reverse_SOURCES)
 am__can_run_installinfo = \
@@ -706,13 +718,15 @@ AUTOMAKE_OPTIONS = foreign subdir-objects
 EXTRA_DIST = $(srcdir)/silent-rules.mk COPYING INSTALL README AUTHORS \
 	uinttype_keyed_radix_sort.c.m4 inttype_keyed_radix_sort.c.m4 \
 	integer-radix-sort.h.m4 tests/test-uinttypes.c.m4 \
-	tests/test-inttypes.c.m4 tests/test-uinttypes-reverse.c.m4
+	tests/test-inttypes.c.m4 tests/test-uinttypes-reverse.c.m4 \
+	tests/test-inttypes-reverse.c.m4
 MOSTLYCLEANFILES = 
 CLEANFILES = integer-radix-sort.h tests/test-UINTTYPE_RADIX_SORT \
 	tests/test-INTTYPE_RADIX_SORT tests/test-stability \
 	tests/test-uinttypes tests/test-uinttypes.c \
 	tests/test-inttypes tests/test-inttypes.c \
-	tests/test-uinttypes-reverse tests/test-uinttypes-reverse.c
+	tests/test-uinttypes-reverse tests/test-uinttypes-reverse.c \
+	tests/test-inttypes-reverse tests/test-inttypes-reverse.c
 DISTCLEANFILES = Makefile GNUmakefile
 BUILT_SOURCES = 
 AM_CPPFLAGS = -I$(builddir) -I$(srcdir)
@@ -774,6 +788,9 @@ tests_test_inttypes_LDADD = libinteger-radix-sort.la
 tests_test_uinttypes_reverse_SOURCES = tests/test-uinttypes-reverse.c \
 	integer-radix-sort.h
 tests_test_uinttypes_reverse_LDADD = libinteger-radix-sort.la
+tests_test_inttypes_reverse_SOURCES = tests/test-inttypes-reverse.c \
+	integer-radix-sort.h
+tests_test_inttypes_reverse_LDADD = libinteger-radix-sort.la
 all: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -928,6 +945,12 @@ tests/test-inttypes.$(OBJEXT): tests/$(am__dirstamp) \
 tests/test-inttypes$(EXEEXT): $(tests_test_inttypes_OBJECTS) $(tests_test_inttypes_DEPENDENCIES) $(EXTRA_tests_test_inttypes_DEPENDENCIES) tests/$(am__dirstamp)
 	@rm -f tests/test-inttypes$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(tests_test_inttypes_OBJECTS) $(tests_test_inttypes_LDADD) $(LIBS)
+tests/test-inttypes-reverse.$(OBJEXT): tests/$(am__dirstamp) \
+	tests/$(DEPDIR)/$(am__dirstamp)
+
+tests/test-inttypes-reverse$(EXEEXT): $(tests_test_inttypes_reverse_OBJECTS) $(tests_test_inttypes_reverse_DEPENDENCIES) $(EXTRA_tests_test_inttypes_reverse_DEPENDENCIES) tests/$(am__dirstamp)
+	@rm -f tests/test-inttypes-reverse$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(tests_test_inttypes_reverse_OBJECTS) $(tests_test_inttypes_reverse_LDADD) $(LIBS)
 tests/test-stability.$(OBJEXT): tests/$(am__dirstamp) \
 	tests/$(DEPDIR)/$(am__dirstamp)
 
@@ -982,6 +1005,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/usint_keyed_radix_sort.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-INTTYPE_RADIX_SORT.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-UINTTYPE_RADIX_SORT.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-inttypes-reverse.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-inttypes.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-stability.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/test-uinttypes-reverse.Po@am__quote@ # am--include-marker
@@ -1335,6 +1359,13 @@ tests/test-uinttypes-reverse.log: tests/test-uinttypes-reverse$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/test-inttypes-reverse.log: tests/test-inttypes-reverse$(EXEEXT)
+	@p='tests/test-inttypes-reverse$(EXEEXT)'; \
+	b='tests/test-inttypes-reverse'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 .test.log:
 	@p='$<'; \
 	$(am__set_b); \
@@ -1610,6 +1641,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/usint_keyed_radix_sort.Plo
 	-rm -f tests/$(DEPDIR)/test-INTTYPE_RADIX_SORT.Po
 	-rm -f tests/$(DEPDIR)/test-UINTTYPE_RADIX_SORT.Po
+	-rm -f tests/$(DEPDIR)/test-inttypes-reverse.Po
 	-rm -f tests/$(DEPDIR)/test-inttypes.Po
 	-rm -f tests/$(DEPDIR)/test-stability.Po
 	-rm -f tests/$(DEPDIR)/test-uinttypes-reverse.Po
@@ -1690,6 +1722,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/usint_keyed_radix_sort.Plo
 	-rm -f tests/$(DEPDIR)/test-INTTYPE_RADIX_SORT.Po
 	-rm -f tests/$(DEPDIR)/test-UINTTYPE_RADIX_SORT.Po
+	-rm -f tests/$(DEPDIR)/test-inttypes-reverse.Po
 	-rm -f tests/$(DEPDIR)/test-inttypes.Po
 	-rm -f tests/$(DEPDIR)/test-stability.Po
 	-rm -f tests/$(DEPDIR)/test-uinttypes-reverse.Po
@@ -1904,6 +1937,8 @@ tests/test-uinttypes.c: tests/test-uinttypes.c.m4
 tests/test-inttypes.c: tests/test-inttypes.c.m4
 	$(call v,M4)$(M4) $(TOTAL_M4FLAGS) $(<) > $(@)
 tests/test-uinttypes-reverse.c: tests/test-uinttypes-reverse.c.m4
+	$(call v,M4)$(M4) $(TOTAL_M4FLAGS) $(<) > $(@)
+tests/test-inttypes-reverse.c: tests/test-inttypes-reverse.c.m4
 	$(call v,M4)$(M4) $(TOTAL_M4FLAGS) $(<) > $(@)
 
 tests-clean:

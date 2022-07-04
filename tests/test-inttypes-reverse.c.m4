@@ -77,8 +77,8 @@ check_failed (const char *file, unsigned int line)
   exit (1);
 }
 
-m4_foreachq(`TYPE',`UINTTYPES',
-`m4_if(TYPE,`uint128',`#if defined __SIZEOF_INT128__
+m4_foreachq(`TYPE',`INTTYPES',
+`m4_if(TYPE,`int128',`#if defined __SIZEOF_INT128__
 ')dnl
 static int
 TYPE`'_revcmp (const void *px, const void *py)
@@ -89,32 +89,31 @@ TYPE`'_revcmp (const void *px, const void *py)
     *((const m4_map_typename(TYPE) *) py);
   return -((x < y) ? -1 : ((x > y) ? 1 : 0));
 }
-m4_if(TYPE,`uint128',`#endif
+m4_if(TYPE,`int128',`#endif
 ')dnl
 
 ')
 
-m4_foreachq(`TYPE',`UINTTYPES',
-`m4_if(TYPE,`uint128',`#if defined __SIZEOF_INT128__
+m4_foreachq(`TYPE',`INTTYPES',
+`m4_if(TYPE,`int128',`#if defined __SIZEOF_INT128__
 ')dnl
 static m4_map_typename(TYPE)
 TYPE`'_get_key (const void *p)
 {
-  m4_map_typename(TYPE) maxval = ~((m4_map_typename(TYPE)) 0);
-  return maxval - (* (const m4_map_typename(TYPE) *) p);
+  return -(* (const m4_map_typename(TYPE) *) p);
 }
-m4_if(TYPE,`uint128',`#endif
+m4_if(TYPE,`int128',`#endif
 ')dnl
 
 ')
 
-m4_foreachq(`TYPE',`UINTTYPES',
-`m4_if(TYPE,`uint128',`#if defined __SIZEOF_INT128__
+m4_foreachq(`TYPE',`INTTYPES',
+`m4_if(TYPE,`int128',`#if defined __SIZEOF_INT128__
 ')dnl
 static void
 test_`'TYPE`'_random_arrays (void)
 {
-  m4_map_typename(TYPE) maxval = ~((m4_map_typename(TYPE)) 0);
+  m4_map_typename(TYPE) maxval = ((~((m4_map_typename(TYPE)) 0)) >> 1);
 
   for (size_t sz = 0; sz <= MAX_SZ; sz = MAX (1, 10 * sz))
     {
@@ -123,7 +122,7 @@ test_`'TYPE`'_random_arrays (void)
       m4_map_typename(TYPE) *p3 = malloc (sz * sizeof (m4_map_typename(TYPE)));
 
       for (size_t i = 0; i < sz; i += 1)
-        p1[i] = random_int (0, maxval);
+        p1[i] = random_int (-maxval, maxval);
 
       for (size_t i = 0; i < sz; i += 1)
         p2[i] = p1[i];
@@ -142,7 +141,7 @@ test_`'TYPE`'_random_arrays (void)
       free (p3);
     }
 }
-m4_if(TYPE,`uint128',`#endif
+m4_if(TYPE,`int128',`#endif
 ')dnl
 
 ')
@@ -152,11 +151,11 @@ m4_if(TYPE,`uint128',`#endif
 int
 main (int argc, char *argv[])
 {
-m4_foreachq(`TYPE',`UINTTYPES',
-`m4_if(TYPE,`uint128',`#if defined __SIZEOF_INT128__
+m4_foreachq(`TYPE',`INTTYPES',
+`m4_if(TYPE,`int128',`#if defined __SIZEOF_INT128__
 ')dnl
   test_`'TYPE`'_random_arrays ();
-m4_if(TYPE,`uint128',`#endif
+m4_if(TYPE,`int128',`#endif
 ')dnl
 ')
   return 0;
