@@ -183,6 +183,8 @@ TESTS =
 TESTS += tests/test-UINTTYPE_RADIX_SORT
 TESTS += tests/test-INTTYPE_RADIX_SORT
 TESTS += tests/test-stability
+TESTS += tests/test-uinttypes
+TESTS += tests/test-inttypes
 
 EXTRA_PROGRAMS += tests/test-UINTTYPE_RADIX_SORT
 CLEANFILES += tests/test-UINTTYPE_RADIX_SORT
@@ -201,6 +203,30 @@ CLEANFILES += tests/test-stability
 tests_test_stability_SOURCES =
 tests_test_stability_SOURCES += tests/test-stability.c
 tests_test_stability_SOURCES += integer-radix-sort.h
+
+EXTRA_PROGRAMS += tests/test-uinttypes
+CLEANFILES += tests/test-uinttypes
+CLEANFILES += tests/test-uinttypes.c
+tests_test_uinttypes_SOURCES =
+tests_test_uinttypes_SOURCES += tests/test-uinttypes.c
+tests_test_uinttypes_SOURCES += integer-radix-sort.h
+tests_test_uinttypes_LDADD =
+tests_test_uinttypes_LDADD += libinteger-radix-sort.la
+EXTRA_DIST += tests/test-uinttypes.c.m4
+tests/test-uinttypes.c: tests/test-uinttypes.c.m4
+	$(call v,M4)$(M4) $(TOTAL_M4FLAGS) $(<) > $(@)
+
+EXTRA_PROGRAMS += tests/test-inttypes
+CLEANFILES += tests/test-inttypes
+CLEANFILES += tests/test-inttypes.c
+tests_test_inttypes_SOURCES =
+tests_test_inttypes_SOURCES += tests/test-inttypes.c
+tests_test_inttypes_SOURCES += integer-radix-sort.h
+tests_test_inttypes_LDADD =
+tests_test_inttypes_LDADD += libinteger-radix-sort.la
+EXTRA_DIST += tests/test-inttypes.c.m4
+tests/test-inttypes.c: tests/test-inttypes.c.m4
+	$(call v,M4)$(M4) $(TOTAL_M4FLAGS) $(<) > $(@)
 
 tests-clean:
 	-rm -f tests/*.$(OBJEXT)
