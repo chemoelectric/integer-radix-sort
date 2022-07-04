@@ -26,7 +26,7 @@ m4_if(TYPE,`int128',`#if defined __SIZEOF_INT128__
 ')dnl
 void
 TYPE`'_keyed_radix_sort (void *base, size_t nmemb, size_t size,
-                       m4_map_typename(TYPE) (*get_key) (void *))
+                       m4_map_typename(TYPE) (*get_key) (const void *))
 {
   INTTYPE_KEYED_RADIX_SORT (m4_map_typename(TYPE), m4_map_typename(m4_signed_to_unsigned(TYPE)),
                             base, nmemb, size, GET_KEY__);
