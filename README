@@ -19,9 +19,10 @@ its own key.
 You have to have an m4 implementation to build the package. You can
 use an ‘Heirloom Development Tools’ m4 but in that case will have to
 increase the pushback buffer size; I had success with ‘m4
--B100000’. Most people use GNU m4, OpenBSD m4, or some such more
-modern implementation, and will encounter no difficulty.
+-B100000’. If you use GNU m4 or OpenBSD m4 you should encounter no
+difficulty.
 
-(Why I bother making my code work with Heirloom Development Tools m4
-is a mystery even to me. The main drawback of it is not the need to
-set buffer sizes manually, but that it is ASCII-only.)
+(The biggest drawback of this ancient Heirloom m4 implementation is
+not the need to set buffer sizes, but that it is ASCII-only. I should
+quit supporting it in my packages, so I could more freely use UTF-8,
+but am pathologically a worry-wart.)
