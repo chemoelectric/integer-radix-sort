@@ -100,7 +100,8 @@ m4_foreachq(`TYPE',`INTTYPES',
 static m4_map_typename(TYPE)
 TYPE`'_get_key (const void *p)
 {
-  return -(* (const m4_map_typename(TYPE) *) p);
+  /* The ones-complement. */
+  return ~(* (const m4_map_typename(TYPE) *) p);
 }
 m4_if(TYPE,`int128',`#endif
 ')dnl
@@ -122,7 +123,7 @@ test_`'TYPE`'_random_arrays (void)
       m4_map_typename(TYPE) *p3 = malloc (sz * sizeof (m4_map_typename(TYPE)));
 
       for (size_t i = 0; i < sz; i += 1)
-        p1[i] = random_int (-maxval, maxval);
+        p1[i] = random_int ((-maxval) - 1, maxval);
 
       for (size_t i = 0; i < sz; i += 1)
         p2[i] = p1[i];
