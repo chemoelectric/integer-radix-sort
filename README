@@ -9,3 +9,19 @@ one byte position at a time.
 
 This package is a translation into C macros of a similar sort I wrote
 as ATS2 template functions.
+
+There are also pre-compiled sort functions for many different integer
+types. These sort functions resemble qsort(3) but take a ‘get_key’
+function instead of a ‘comparison’ function. Also, the ‘get_key’
+parameter can be set to NULL, in which case the array entry is used as
+its own key.
+
+You have to have an m4 implementation to build the package. You can
+use an ‘Heirloom Development Tools’ m4 but in that case will have to
+increase the pushback buffer size; I had success with ‘m4
+-B100000’. Most people use GNU m4, OpenBSD m4, or some such more
+modern implementation, and will encounter no difficulty.
+
+(Why I bother making my code work with Heirloom Development Tools m4
+is a mystery even to me. The main drawback of it is not the need to
+set buffer sizes manually, but that it is ASCII-only.)
